@@ -6,15 +6,16 @@ import { serializeAxiosError } from './reducer.utils';
 import { AppThunk } from 'app/config/store';
 
 const AUTH_TOKEN_KEY = 'jhi-authenticationToken';
+const AUTH_ROLES_KEY = 'jhi-roles';
 
 export const initialState = {
   loading: false,
   isAuthenticated: false,
   loginSuccess: false,
-  loginError: false, // Errors returned from server side
+  loginError: false,
   showModalLogin: false,
   account: {} as any,
-  errorMessage: null as unknown as string, // Errors returned from server side
+  errorMessage: null as unknown as string,
   redirectMessage: null as unknown as string,
   sessionHasBeenFetched: false,
   logoutUrl: null as unknown as string,
@@ -60,16 +61,25 @@ export const login: (username: string, password: string, rememberMe?: boolean) =
         Storage.session.set(AUTH_TOKEN_KEY, jwt);
       }
     }
+    // Cập nhật quyền sau khi đăng nhập thành công
+    const roles = response?.data?.authorities || [];
+    Storage.session.set(AUTH_ROLES_KEY, roles); // Lưu quyền vào sessionStorage
     dispatch(getSession());
+    extendTokenExpiry();
   };
 
 export const clearAuthToken = () => {
   if (Storage.local.get(AUTH_TOKEN_KEY)) {
     Storage.local.remove(AUTH_TOKEN_KEY);
+    Storage.local.remove(AUTH_ROLES_KEY);
   }
   if (Storage.session.get(AUTH_TOKEN_KEY)) {
     Storage.session.remove(AUTH_TOKEN_KEY);
+    Storage.session.remove(AUTH_ROLES_KEY);
   }
+
+  // Ghi vào localStorage để thông báo đăng xuất
+  localStorage.setItem('logout-event', Date.now().toString());
 };
 
 export const logout: () => AppThunk = () => dispatch => {
@@ -134,6 +144,10 @@ export const AuthenticationSlice = createSlice({
       }))
       .addCase(getAccount.fulfilled, (state, action) => {
         const isAuthenticated = action.payload && action.payload.data && action.payload.data.activated;
+        if (isAuthenticated) {
+          const roles = action.payload.data.authorities;
+          Storage.session.set(AUTH_ROLES_KEY, roles);
+        }
         return {
           ...state,
           isAuthenticated,
@@ -155,3 +169,41 @@ export const { logoutSession, authError, clearAuth } = AuthenticationSlice.actio
 
 // Reducer
 export default AuthenticationSlice.reducer;
+
+// Gia hạn thời gian lưu trữ token
+const extendTokenExpiry = () => {
+  const token = Storage.local.get(AUTH_TOKEN_KEY) || Storage.session.get(AUTH_TOKEN_KEY);
+  if (token) {
+    const expirationTime = Date.now() + 5 * 60 * 1000; // 5 phút
+    localStorage.setItem('token-expiration', expirationTime.toString());
+  }
+};
+
+// Kiểm tra thời gian hết hạn token
+const checkTokenExpiry = () => {
+  const expirationTime = localStorage.getItem('token-expiration');
+  if (expirationTime && Date.now() > parseInt(expirationTime, 10)) {
+    clearAuthToken();
+    // window.location.href = '/login'; // Hoặc hành động khác tuỳ vào logic của ứng dụng
+  }
+};
+
+// Lắng nghe sự kiện người dùng để gia hạn thời gian lưu trữ token
+const setupTokenExpiryListeners = () => {
+  document.addEventListener('mousemove', extendTokenExpiry);
+  document.addEventListener('keypress', extendTokenExpiry);
+  window.addEventListener('storage', event => {
+    if (event.key === 'logout-event') {
+      // Xóa token và thực hiện các hành động đăng xuất khác
+      clearAuthToken();
+      // window.location.href = '/login'; // Hoặc hành động khác tuỳ vào logic của ứng dụng
+    }
+  });
+};
+
+// Khởi tạo các sự kiện và kiểm tra token khi ứng dụng tải
+window.onload = () => {
+  setupTokenExpiryListeners();
+  extendTokenExpiry();
+  setInterval(checkTokenExpiry, 10000); // Kiểm tra token mỗi 10 giây
+};

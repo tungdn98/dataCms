@@ -38,7 +38,7 @@ public class EmpGroup extends AbstractAuditingEntity implements Serializable {
     @JsonIgnoreProperties(value = { "empGroup" }, allowSetters = true)
     private Set<Employee> employees = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "rel_emp_group__role",
         joinColumns = @JoinColumn(name = "emp_group_id"),

@@ -19,8 +19,11 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import tech.jhipster.config.JHipsterConstants;
 import tech.jhipster.config.JHipsterProperties;
+import vn.com.datamanager.security.PermissionInterceptor;
 
 /**
  * Configuration of web application with Servlet 3.0 APIs.
@@ -34,9 +37,12 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
 
     private final JHipsterProperties jHipsterProperties;
 
-    public WebConfigurer(Environment env, JHipsterProperties jHipsterProperties) {
+    private final PermissionInterceptor interceptor;
+
+    public WebConfigurer(Environment env, JHipsterProperties jHipsterProperties, PermissionInterceptor interceptor) {
         this.env = env;
         this.jHipsterProperties = jHipsterProperties;
+        this.interceptor = interceptor;
     }
 
     @Override
@@ -95,5 +101,15 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
             source.registerCorsConfiguration("/swagger-ui/**", config);
         }
         return new CorsFilter(source);
+    }
+
+    @Bean
+    public WebMvcConfigurer webMvcConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addInterceptors(InterceptorRegistry registry) {
+                registry.addInterceptor(interceptor);
+            }
+        };
     }
 }

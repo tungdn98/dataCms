@@ -6,14 +6,17 @@ import javax.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import vn.com.datamanager.domain.User;
 import vn.com.datamanager.repository.UserRepository;
 import vn.com.datamanager.security.SecurityUtils;
+import vn.com.datamanager.service.EmployeeService;
 import vn.com.datamanager.service.MailService;
 import vn.com.datamanager.service.UserService;
 import vn.com.datamanager.service.dto.AdminUserDTO;
+import vn.com.datamanager.service.dto.EmployeeDTO;
 import vn.com.datamanager.service.dto.PasswordChangeDTO;
 import vn.com.datamanager.web.rest.errors.*;
 import vn.com.datamanager.web.rest.vm.KeyAndPasswordVM;
@@ -40,6 +43,9 @@ public class AccountResource {
     private final UserService userService;
 
     private final MailService mailService;
+
+    @Autowired
+    EmployeeService employeeService;
 
     public AccountResource(UserRepository userRepository, UserService userService, MailService mailService) {
         this.userRepository = userRepository;
@@ -98,11 +104,9 @@ public class AccountResource {
      * @throws RuntimeException {@code 500 (Internal Server Error)} if the user couldn't be returned.
      */
     @GetMapping("/account")
-    public AdminUserDTO getAccount() {
-        return userService
-            .getUserWithAuthorities()
-            .map(AdminUserDTO::new)
-            .orElseThrow(() -> new AccountResourceException("User could not be found"));
+    public EmployeeDTO getCurrentUser() {
+        log.info("============ GET CURRENT USER ==============");
+        return employeeService.getEmployeeWithRoles().orElseThrow(() -> new AccountResourceException("User not found"));
     }
 
     /**

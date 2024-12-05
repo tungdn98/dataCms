@@ -1,5 +1,6 @@
 package vn.com.datamanager.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
@@ -45,7 +46,19 @@ public class Roles extends AbstractAuditingEntity implements Serializable {
     @JsonIgnoreProperties(value = { "employees", "roles" }, allowSetters = true)
     private Set<EmpGroup> empGroups = new HashSet<>();
 
+    @ManyToMany(mappedBy = "roles")
+    @JsonIgnore
+    private Set<Employee> employees = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
+    public Set<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Set<Employee> employees) {
+        this.employees = employees;
+    }
 
     public Long getId() {
         return this.id;

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -68,11 +70,27 @@ public class Employee extends AbstractAuditingEntity implements Serializable {
     @Column(name = "employee_full_name")
     private String employeeFullName;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIgnoreProperties(value = { "employees", "roles" }, allowSetters = true)
     private EmpGroup empGroup;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "employee_role",
+        joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+    )
+    private Set<Roles> roles = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
+
+    public Set<Roles> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Roles> roles) {
+        this.roles = roles;
+    }
 
     public Long getId() {
         return this.id;
