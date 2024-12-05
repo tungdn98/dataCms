@@ -1,0 +1,28 @@
+{
+  "applications": "*",
+  "changelogDate": "20241205022015",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "activity_type",
+  "fields": [
+    {
+      "fieldName": "activityTypeId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "activityType",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "textStr",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "ActivityType",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

@@ -1,0 +1,56 @@
+{
+  "applications": "*",
+  "changelogDate": "20241205022011",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "customer",
+  "fields": [
+    {
+      "fieldName": "accountId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "accountCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "accountName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "mappingAccount",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "accountEmail",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "accountPhone",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "accountTypeName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "genderName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "industryName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ownerEmployeeId",
+      "fieldType": "Long"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Customer",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

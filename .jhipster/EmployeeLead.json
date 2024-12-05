@@ -1,0 +1,49 @@
+{
+  "applications": "*",
+  "changelogDate": "20241205022010",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "employee_lead",
+  "fields": [
+    {
+      "fieldName": "leadId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "employeeId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "leadCode",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "leadName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "leadPotentialLevelId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "leadSourceId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "leadPotentialLevelName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "leadSourceName",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "EmployeeLead",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

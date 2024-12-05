@@ -1,0 +1,28 @@
+{
+  "applications": "*",
+  "changelogDate": "20241205022007",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "payment_term",
+  "fields": [
+    {
+      "fieldName": "paymentTermId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "paymentTermCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "paymentTermName",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "PaymentTerm",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

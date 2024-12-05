@@ -1,0 +1,78 @@
+{
+  "applications": "*",
+  "changelogDate": "20241205022004",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "sale_opportunity",
+  "fields": [
+    {
+      "fieldName": "opportunityId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "opportunityCode",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "opportunityName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "opportunityTypeName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "startDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "closeDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "stageId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "stageReasonId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "employeeId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "leadId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "currencyCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "accountId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "productId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "salesPricePrd",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "value",
+      "fieldType": "BigDecimal"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "SaleOpportunity",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

@@ -1,0 +1,104 @@
+{
+  "applications": "*",
+  "changelogDate": "20241205022014",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "activity",
+  "fields": [
+    {
+      "fieldName": "activityId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "companyId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "deadline",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "state",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "accountId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "activityTypeId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "objectTypeId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "priorityId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "opportunityId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contractId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "priorityName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "responsibleId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "startDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "closedOn",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "duration",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "durationUnitId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "conversion",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "textStr",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Activity",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

@@ -1,0 +1,47 @@
+{
+  "applications": "*",
+  "changelogDate": "20241205022000",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "role_group",
+  "fields": [
+    {
+      "fieldName": "groupName",
+      "fieldType": "String",
+      "fieldValidateRules": ["unique", "minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "100",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lastModifiedDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "lastModifiedBy",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "javadoc": "Nhóm quyền",
+  "jpaMetamodelFiltering": true,
+  "name": "RoleGroup",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "roles",
+      "otherEntityRelationshipName": "roleGroup",
+      "relationshipName": "role",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

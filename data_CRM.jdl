@@ -1,0 +1,297 @@
+/**
+ * Cấu hình hệ thống
+ */
+entity Config {
+  configName String unique minlength(1) maxlength(100),
+  configValue String required,
+  configDesc String,
+  createdDate Instant,
+  createdBy String,
+  lastModifiedDate Instant,
+  lastModifiedBy String
+}
+/**
+ * Lịch sử chỉnh sửa tham số hệ thống
+ */
+entity ConfigLog {
+  configName String unique minlength(1) maxlength(100),
+  valueBefore String,
+  valueAfter String,
+  modifiedDate Instant,
+  modifiedUsername String,
+  modifiedFullname String
+}
+/**
+ * Nhóm người dùng
+ */
+entity EmpGroup {
+  groupName String required minlength(1) maxlength(100),
+  createdDate Instant,
+  createdBy String,
+  lastModifiedDate Instant,
+  lastModifiedBy String
+}
+/**
+ * Người dùng
+ */
+entity Employee {
+  employeeCode String unique minlength(1) maxlength(100),
+  employeeName String required,
+  username String required unique,
+  password String,
+  active Integer,
+  companyCode String,
+  companyName String,
+  organizationId String,
+  employeeLastName String,
+  employeeMiddleName String,
+  employeeTitleId String,
+  employeeTitleName String,
+  employeeFullName String,
+  createdDate Instant,
+  createdBy String,
+  lastModifiedDate Instant,
+  lastModifiedBy String
+}
+/**
+ * Lịch sử đăng nhập hệ thống
+ */
+entity LoginHistory {
+  empCode String,
+  empUsername String,
+  empFullName String,
+  loginIp String,
+  loginTime Instant
+}
+/**
+ * Nhóm quyền
+ */
+entity RoleGroup {
+  groupName String unique minlength(1) maxlength(100),
+  createdDate Instant,
+  createdBy String,
+  lastModifiedDate Instant,
+  lastModifiedBy String
+}
+/**
+ * Quyền
+ */
+entity Roles {
+  resourceUrl String required minlength(1) maxlength(100),
+  resourceDesc String,
+  createdDate Instant,
+  createdBy String,
+  lastModifiedDate Instant,
+  lastModifiedBy String
+}
+
+/**
+ * Danh sách Company
+ */
+entity Company {
+  companyCode String,
+  companyName String,
+  description String,
+  location String,
+  phoneNumber String,
+  createdDate Instant,
+  createdBy String,
+  lastModifiedDate Instant,
+  lastModifiedBy String
+}
+
+/**
+ * CRM
+ */
+entity SaleOrder  {
+  orderId String,
+  contractId String,
+  ownerEmployeeId String,
+  productId String,
+  totalValue BigDecimal,
+  orderStageId String,
+  orderStageName String,
+  totalValue BigDecimal,
+  createdDate Instant,
+  createdBy String,
+  lastModifiedDate Instant,
+  lastModifiedBy String
+}
+
+entity SaleOpportunity {
+  opportunityId Long,
+  opportunityCode String required,
+  opportunityName String required,
+  opportunityTypeName String,
+  startDate LocalDate,
+  closeDate LocalDate,
+  stageId Long,
+  stageReasonId Long,
+  employeeId Long,
+  leadId Long,
+  currencyCode String,
+  accountId Long,
+  productId Long,
+  salesPricePrd BigDecimal,
+  value BigDecimal
+}
+
+entity SaleContract {
+  contractId String,
+  companyId String,
+  accountId String,
+  contactSignedDate LocalDate,
+  contactSignedTitle String,
+  contractEndDate LocalDate,
+  contractNumber String,
+  contractNumberInput String,
+  contractStageId String,
+  contractStartDate LocalDate,
+  ownerEmployeeId String,
+  paymentMethodId String,
+  contractName String,
+  contractTypeId Long,
+  currencyId String,
+  grandTotal BigDecimal,
+  paymentTermId String,
+  quoteId String,
+  currencyExchangeRateId String,
+  contractStageName String,
+  paymentStatusId Long,
+  period Integer,
+  payment String
+}
+
+entity Product {
+  productId String,
+  productCode String ,
+  productFamilyId String,
+  productPriceId String,
+  productName String,
+  productFamilyCode String,
+  productFamilyName String
+}
+
+entity PaymentTerm {
+  paymentTermId String,
+  paymentTermCode String ,
+  paymentTermName String
+}
+
+entity OpportunityStage {
+  opportunityStageId String,
+  opportunityStageName String,
+  opportunityStageCode String 
+}
+
+entity OpportunityStageReason {
+  opportunityStageReasonId String,
+  opportunityStageId String,
+  opportunityStageReasonName String
+}
+
+entity EmployeeLead {
+  leadId String,
+  employeeId String,
+  leadCode String required,
+  leadName String,
+  leadPotentialLevelId String,
+  leadSourceId String,
+  leadPotentialLevelName String,
+  leadSourceName String
+}
+
+entity Customer {
+  accountId String,
+  accountCode String ,
+  accountName String,
+  mappingAccount String,
+  accountEmail String,
+  accountPhone String,
+  accountTypeName String,
+  genderName String,
+  industryName String,
+  ownerEmployeeId Long
+}
+
+entity Currency {
+  currencyId String,
+  currencyNum String ,
+  currencyCode String ,
+  currencyName String,
+  currencyExchangeRateId Long,
+  conversionRate BigDecimal
+}
+
+entity ContractType {
+  contractTypeId String,
+  contractTypeName String,
+  contractTypeCode String
+}
+
+entity Activity {
+  activityId String,
+  companyId String,
+  createDate Instant,
+  deadline LocalDate,
+  name String,
+  state String,
+  type String,
+  accountId String,
+  activityTypeId String,
+  objectTypeId String,
+  priorityId String,
+  opportunityId String,
+  orderId String,
+  contractId String,
+  priorityName String,
+  responsibleId String,
+  startDate Instant,
+  closedOn Instant,
+  duration Integer,
+  durationUnitId String,
+  conversion BigDecimal,
+  textStr String
+}
+
+entity ActivityType {
+  activityTypeId Long,
+  activityType String,
+  textStr String
+}
+
+entity ActivityObject {
+  objectTypeId Long,
+  taskObjectType String,
+  textStr String
+}
+entity ActivityObject {
+  unitCode String,
+  unitName String
+}
+
+entity PaymentStatus {
+  paymentStatusId String,
+  paymentStatusName String
+}
+entity PaymentMethod {
+  paymentStatusId String,
+  paymentStatusName String
+}
+
+entity Unit {
+  unitCode String,
+  unitName String
+}
+
+relationship OneToMany {
+  EmpGroup{employee} to Employee{empGroup},
+  RoleGroup{role} to Roles{roleGroup},
+}
+relationship ManyToMany {
+  EmpGroup{role} to Roles{empGroup}
+}
+
+paginate * with pagination
+service * with serviceClass
+filter *

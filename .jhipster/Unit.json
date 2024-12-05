@@ -1,0 +1,24 @@
+{
+  "applications": "*",
+  "changelogDate": "20241205022019",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "unit",
+  "fields": [
+    {
+      "fieldName": "unitCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "unitName",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Unit",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

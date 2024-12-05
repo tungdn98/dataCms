@@ -1,0 +1,28 @@
+{
+  "applications": "*",
+  "changelogDate": "20241205022009",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "opportunity_stage_reason",
+  "fields": [
+    {
+      "fieldName": "opportunityStageReasonId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "opportunityStageId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "opportunityStageReasonName",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "OpportunityStageReason",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

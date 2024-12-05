@@ -4,6 +4,11 @@
 body {
   background: #fafafa;
   margin: 0;
+  font-size: x-small;
+}
+
+.btn {
+  font-size: x-small;
 }
 
 a {
@@ -93,8 +98,16 @@ Generic styles
 
 /* other generic styles */
 
+.table {
+  @extend .table-striped;
+  @extend .table-bordered;
+  @extend .table-hover;
+  @extend .table-sm;
+  @extend .table-secondary;
+}
+
 .title {
-  font-size: 1.25em;
+  font-size: small;
   margin: 1px 10px 1px 10px;
 }
 

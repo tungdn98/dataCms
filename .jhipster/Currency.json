@@ -1,0 +1,40 @@
+{
+  "applications": "*",
+  "changelogDate": "20241205022012",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "currency",
+  "fields": [
+    {
+      "fieldName": "currencyId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "currencyNum",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "currencyCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "currencyName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "currencyExchangeRateId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "conversionRate",
+      "fieldType": "BigDecimal"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Currency",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

@@ -1,0 +1,44 @@
+{
+  "applications": "*",
+  "changelogDate": "20241205021956",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "config_log",
+  "fields": [
+    {
+      "fieldName": "configName",
+      "fieldType": "String",
+      "fieldValidateRules": ["unique", "minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "100",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "valueBefore",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "valueAfter",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "modifiedDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "modifiedUsername",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "modifiedFullname",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "javadoc": "Lịch sử chỉnh sửa tham số hệ thống",
+  "jpaMetamodelFiltering": true,
+  "name": "ConfigLog",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

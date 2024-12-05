@@ -1,0 +1,37 @@
+{
+  "applications": "*",
+  "changelogDate": "20241205021959",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "login_history",
+  "fields": [
+    {
+      "fieldName": "empCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "empUsername",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "empFullName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "loginIp",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "loginTime",
+      "fieldType": "Instant"
+    }
+  ],
+  "fluentMethods": true,
+  "javadoc": "Lịch sử đăng nhập hệ thống",
+  "jpaMetamodelFiltering": true,
+  "name": "LoginHistory",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

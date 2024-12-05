@@ -1,0 +1,24 @@
+{
+  "applications": "*",
+  "changelogDate": "20241205022016",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "activity_object",
+  "fields": [
+    {
+      "fieldName": "unitCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "unitName",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "ActivityObject",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

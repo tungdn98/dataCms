@@ -1,0 +1,28 @@
+{
+  "applications": "*",
+  "changelogDate": "20241205022008",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "opportunity_stage",
+  "fields": [
+    {
+      "fieldName": "opportunityStageId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "opportunityStageName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "opportunityStageCode",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "OpportunityStage",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

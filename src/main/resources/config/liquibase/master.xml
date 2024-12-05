@@ -15,7 +15,35 @@
     <property name="datetimeType" value="datetime" dbms="oracle, mssql, postgresql, h2"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241205021955_added_entity_Config.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241205021956_added_entity_ConfigLog.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241205021957_added_entity_EmpGroup.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241205021958_added_entity_Employee.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241205021959_added_entity_LoginHistory.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241205022000_added_entity_RoleGroup.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241205022001_added_entity_Roles.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241205022002_added_entity_Company.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241205022003_added_entity_SaleOrder.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241205022004_added_entity_SaleOpportunity.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241205022005_added_entity_SaleContract.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241205022006_added_entity_Product.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241205022007_added_entity_PaymentTerm.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241205022008_added_entity_OpportunityStage.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241205022009_added_entity_OpportunityStageReason.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241205022010_added_entity_EmployeeLead.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241205022011_added_entity_Customer.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241205022012_added_entity_Currency.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241205022013_added_entity_ContractType.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241205022014_added_entity_Activity.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241205022015_added_entity_ActivityType.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241205022016_added_entity_ActivityObject.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241205022017_added_entity_PaymentStatus.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241205022018_added_entity_PaymentMethod.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241205022019_added_entity_Unit.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20241205021957_added_entity_constraints_EmpGroup.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241205021958_added_entity_constraints_Employee.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241205022001_added_entity_constraints_Roles.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

@@ -1,0 +1,24 @@
+{
+  "applications": "*",
+  "changelogDate": "20241205022017",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "payment_status",
+  "fields": [
+    {
+      "fieldName": "paymentStatusId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "paymentStatusName",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "PaymentStatus",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

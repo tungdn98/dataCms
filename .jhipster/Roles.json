@@ -1,0 +1,58 @@
+{
+  "applications": "*",
+  "changelogDate": "20241205022001",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "roles",
+  "fields": [
+    {
+      "fieldName": "resourceUrl",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "100",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "resourceDesc",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lastModifiedDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "lastModifiedBy",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "javadoc": "Quyền",
+  "jpaMetamodelFiltering": true,
+  "name": "Roles",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "roleGroup",
+      "otherEntityRelationshipName": "role",
+      "relationshipName": "roleGroup",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "empGroup",
+      "otherEntityRelationshipName": "role",
+      "ownerSide": false,
+      "relationshipName": "empGroup",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

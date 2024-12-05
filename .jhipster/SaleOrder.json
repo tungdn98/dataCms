@@ -1,0 +1,61 @@
+{
+  "applications": "*",
+  "changelogDate": "20241205022003",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "sale_order",
+  "fields": [
+    {
+      "fieldName": "orderId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contractId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ownerEmployeeId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "productId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "totalValue",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "orderStageId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderStageName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lastModifiedDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "lastModifiedBy",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "javadoc": "CRM",
+  "jpaMetamodelFiltering": true,
+  "name": "SaleOrder",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

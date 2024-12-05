@@ -1,0 +1,108 @@
+{
+  "applications": "*",
+  "changelogDate": "20241205022005",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "sale_contract",
+  "fields": [
+    {
+      "fieldName": "contractId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "companyId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "accountId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contactSignedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "contactSignedTitle",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contractEndDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "contractNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contractNumberInput",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contractStageId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contractStartDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "ownerEmployeeId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "paymentMethodId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contractName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contractTypeId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "currencyId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "grandTotal",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "paymentTermId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "quoteId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "currencyExchangeRateId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contractStageName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "paymentStatusId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "period",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "payment",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "SaleContract",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

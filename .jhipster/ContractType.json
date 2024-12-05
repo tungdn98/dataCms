@@ -1,0 +1,28 @@
+{
+  "applications": "*",
+  "changelogDate": "20241205022013",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "contract_type",
+  "fields": [
+    {
+      "fieldName": "contractTypeId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contractTypeName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contractTypeCode",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "ContractType",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

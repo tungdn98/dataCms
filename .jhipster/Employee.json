@@ -1,0 +1,97 @@
+{
+  "applications": "*",
+  "changelogDate": "20241205021958",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "employee",
+  "fields": [
+    {
+      "fieldName": "employeeCode",
+      "fieldType": "String",
+      "fieldValidateRules": ["unique", "minlength", "maxlength"],
+      "fieldValidateRulesMaxlength": "100",
+      "fieldValidateRulesMinlength": "1"
+    },
+    {
+      "fieldName": "employeeName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "username",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "password",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "active",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "companyCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "companyName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "organizationId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "employeeLastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "employeeMiddleName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "employeeTitleId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "employeeTitleName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "employeeFullName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lastModifiedDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "lastModifiedBy",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "javadoc": "Người dùng",
+  "jpaMetamodelFiltering": true,
+  "name": "Employee",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "empGroup",
+      "otherEntityRelationshipName": "employee",
+      "relationshipName": "empGroup",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}
