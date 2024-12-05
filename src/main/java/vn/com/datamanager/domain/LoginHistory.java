@@ -14,7 +14,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "login_history")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class LoginHistory implements Serializable {
+public class LoginHistory extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

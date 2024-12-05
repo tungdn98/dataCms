@@ -18,7 +18,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "roles")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Roles implements Serializable {
+public class Roles extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -35,18 +35,6 @@ public class Roles implements Serializable {
 
     @Column(name = "resource_desc")
     private String resourceDesc;
-
-    @Column(name = "created_date")
-    private Instant createdDate;
-
-    @Column(name = "created_by")
-    private String createdBy;
-
-    @Column(name = "last_modified_date")
-    private Instant lastModifiedDate;
-
-    @Column(name = "last_modified_by")
-    private String lastModifiedBy;
 
     @ManyToOne
     @JsonIgnoreProperties(value = { "roles" }, allowSetters = true)
@@ -98,34 +86,9 @@ public class Roles implements Serializable {
         this.resourceDesc = resourceDesc;
     }
 
-    public Instant getCreatedDate() {
-        return this.createdDate;
-    }
-
-    public Roles createdDate(Instant createdDate) {
-        this.setCreatedDate(createdDate);
-        return this;
-    }
-
-    public void setCreatedDate(Instant createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public String getCreatedBy() {
-        return this.createdBy;
-    }
-
     public Roles createdBy(String createdBy) {
         this.setCreatedBy(createdBy);
         return this;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Instant getLastModifiedDate() {
-        return this.lastModifiedDate;
     }
 
     public Roles lastModifiedDate(Instant lastModifiedDate) {
@@ -133,21 +96,9 @@ public class Roles implements Serializable {
         return this;
     }
 
-    public void setLastModifiedDate(Instant lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
-
-    public String getLastModifiedBy() {
-        return this.lastModifiedBy;
-    }
-
     public Roles lastModifiedBy(String lastModifiedBy) {
         this.setLastModifiedBy(lastModifiedBy);
         return this;
-    }
-
-    public void setLastModifiedBy(String lastModifiedBy) {
-        this.lastModifiedBy = lastModifiedBy;
     }
 
     public RoleGroup getRoleGroup() {
@@ -195,6 +146,46 @@ public class Roles implements Serializable {
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
+
+    @Override
+    public String getCreatedBy() {
+        return super.getCreatedBy();
+    }
+
+    @Override
+    public void setCreatedBy(String createdBy) {
+        super.setCreatedBy(createdBy);
+    }
+
+    @Override
+    public Instant getCreatedDate() {
+        return super.getCreatedDate();
+    }
+
+    @Override
+    public void setCreatedDate(Instant createdDate) {
+        super.setCreatedDate(createdDate);
+    }
+
+    @Override
+    public String getLastModifiedBy() {
+        return super.getLastModifiedBy();
+    }
+
+    @Override
+    public void setLastModifiedBy(String lastModifiedBy) {
+        super.setLastModifiedBy(lastModifiedBy);
+    }
+
+    @Override
+    public Instant getLastModifiedDate() {
+        return super.getLastModifiedDate();
+    }
+
+    @Override
+    public void setLastModifiedDate(Instant lastModifiedDate) {
+        super.setLastModifiedDate(lastModifiedDate);
+    }
 
     @Override
     public boolean equals(Object o) {
