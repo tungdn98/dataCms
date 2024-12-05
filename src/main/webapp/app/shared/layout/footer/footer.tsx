@@ -14,17 +14,17 @@ const Footer = () => (
         <ul className="social-links list-inline">
           <li className="list-inline-item">
             <a href="https://www.facebook.com/your-facebook-page" target="_blank" rel="noopener noreferrer">
-              <i className="fa fa-facebook"></i>
+              <i className="pi pi-facebook" style={{ fontSize: '1.2rem' }}></i>
             </a>
           </li>
           <li className="list-inline-item">
             <a href="https://twitter.com/your-twitter-profile" target="_blank" rel="noopener noreferrer">
-              <i className="fa fa-twitter"></i>
+              <i className="pi pi-twitter" style={{ fontSize: '1.2rem' }}></i>
             </a>
           </li>
           <li className="list-inline-item">
             <a href="https://www.linkedin.com/company/your-linkedin-page" target="_blank" rel="noopener noreferrer">
-              <i className="fa fa-linkedin"></i>
+              <i className="pi pi-linkedin" style={{ fontSize: '1.2rem' }}></i>
             </a>
           </li>
         </ul>
