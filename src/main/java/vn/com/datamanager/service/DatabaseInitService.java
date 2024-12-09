@@ -98,6 +98,12 @@ public class DatabaseInitService {
 
                         role = new Roles();
                         role.setRoleGroup(roleGroup);
+                        role.setResourceUrl("ROLE_ADMIN");
+                        role.setResourceDesc("ROLE ADMIN MẶC ĐỊNH");
+                        roleRepository.save(role);
+
+                        role = new Roles();
+                        role.setRoleGroup(roleGroup);
                         role.setResourceUrl("config/createconfig");
                         role.setResourceDesc("Thêm mới cấu hình hệ thống");
                         roleRepository.save(role);

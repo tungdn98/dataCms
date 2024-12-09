@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -195,5 +196,20 @@ public class CompanyResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @PostMapping("/companies/batch")
+    public ResponseEntity<Integer> saveBatchCompanies(@RequestBody List<Company> companies) {
+        log.debug("REST request to save a list of Companies : {}", companies);
+        for (Company company : companies) {
+            if (company.getId() != null) {
+                throw new BadRequestAlertException("A new company cannot already have an ID", ENTITY_NAME, "idexists");
+            }
+        }
+        Integer savedCount = companyService.saveAll(companies);
+        return ResponseEntity
+            .ok()
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, savedCount.toString()))
+            .body(savedCount);
     }
 }

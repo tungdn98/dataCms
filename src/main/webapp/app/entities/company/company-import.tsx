@@ -1,7 +1,17 @@
 import React, { useState } from 'react';
 import * as XLSX from 'xlsx';
 import { JhiItemCount, JhiPagination } from 'react-jhipster';
-import { Table, Button, Label } from 'reactstrap'; // Giả sử bạn có sẵn các component này
+import { Table, Button, Progress } from 'reactstrap';
+import axios from 'axios';
+
+export interface ICompany {
+  id?: number;
+  companyCode?: string | null;
+  companyName?: string | null;
+  description?: string | null;
+  location?: string | null;
+  phoneNumber?: string | null;
+}
 
 function CompanyImport() {
   const [excelData, setExcelData] = useState<string[][]>([]);
@@ -13,6 +23,9 @@ function CompanyImport() {
     activePage: 1,
     itemsPerPage: 10,
   });
+
+  const [uploading, setUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0); // Tiến trình %
 
   const totalItems = excelData.length;
 
@@ -61,20 +74,57 @@ function CompanyImport() {
     reader.readAsArrayBuffer(file);
   };
 
-  const handlePushToCloud = () => {
-    fetch('/api/uploadExcelData', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ data: excelData }),
-    })
-      .then(response => response.json())
-      .then(() => {
-        alert('Upload thành công!');
-      })
-      .catch(err => {
-        console.error(err);
+  const convertToCompanyList = (): ICompany[] => {
+    return excelData.map(row => ({
+      companyCode: row[1] || null,
+      companyName: row[2] || null,
+      description: row[3] || null,
+      location: row[4] || null,
+      phoneNumber: row[5] || null,
+    }));
+  };
+
+  const handlePushToCloud = async () => {
+    if (uploading) return; // tránh nhấn nhiều lần
+
+    const companyList = convertToCompanyList();
+    const totalRecords = companyList.length;
+    if (totalRecords === 0) {
+      alert('Không có dữ liệu để upload.');
+      return;
+    }
+
+    setUploading(true);
+    setUploadProgress(0);
+
+    const batchSize = 1000;
+    const totalBatches = Math.ceil(totalRecords / batchSize);
+
+    for (let batchIndex = 0; batchIndex < totalBatches; batchIndex++) {
+      const start = batchIndex * batchSize;
+      const end = Math.min(start + batchSize, totalRecords);
+      const batchData = companyList.slice(start, end);
+
+      try {
+        // Sử dụng axios
+        const response = await axios.post('/api/companies/batch', batchData);
+        // Nếu response.status ngoài 2xx, axios sẽ ném lỗi, nên không cần kiểm tra thủ công
+
+        // Batch upload thành công, cập nhật tiến trình
+        const uploadedCount = end; // số dòng đã upload xong
+        const progressPercent = Math.floor((uploadedCount / totalRecords) * 100);
+        setUploadProgress(progressPercent);
+      } catch (error) {
+        console.error('Lỗi upload:', error);
         alert('Upload thất bại!');
-      });
+        setUploading(false);
+        return;
+      }
+    }
+
+    // Tất cả batch upload xong
+    alert('Upload thành công tất cả dữ liệu!');
+    setUploading(false);
   };
 
   const handlePagination = (currentPage: number) => {
@@ -94,20 +144,34 @@ function CompanyImport() {
       <label htmlFor="file-upload" className="btn btn-info me-2">
         <i className="pi pi-file-import" style={{ fontSize: '1rem' }}></i>
         <span className="ms-1" style={{ color: 'white', fontWeight: 'bold' }}>
-          {' '}
-          import Data{' '}
+          import Data
         </span>
       </label>
       <input id="file-upload" type="file" accept=".xls,.xlsx" onChange={handleFileChange} style={{ display: 'none' }} />
+
       {excelData.length > 0 && (
-        <Button className="me-2" color="info" onClick={handlePushToCloud}>
+        <Button
+          className="me-2"
+          color="info"
+          onClick={() => {
+            void handlePushToCloud();
+          }}
+          disabled={uploading}
+        >
           <i className="pi pi-cloud-upload" style={{ fontSize: '1rem' }}></i>
           <span className="ms-1" style={{ color: 'white', fontWeight: 'bold' }}>
-            {' '}
-            start push Data{' '}
+            start push Data
           </span>
         </Button>
       )}
+
+      {uploading && (
+        <div style={{ width: '300px', marginTop: '20px' }}>
+          <Progress value={uploadProgress} />
+          <span>{uploadProgress}%</span>
+        </div>
+      )}
+
       {excelData.length > 0 && (
         <div style={{ marginTop: '20px' }}>
           <Table responsive>

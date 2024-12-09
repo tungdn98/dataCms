@@ -156,19 +156,19 @@ export const Company = (props: RouteComponentProps<{ url: string }>) => {
                 <th className="hand" onClick={sort('phoneNumber')}>
                   Phone Number <FontAwesomeIcon icon="sort" />
                 </th>
-                <th className="hand" onClick={sort('createdDate')}>
-                  Created Date <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={sort('createdBy')}>
-                  Created By <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={sort('lastModifiedDate')}>
-                  Last Modified Date <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={sort('lastModifiedBy')}>
-                  Last Modified By <FontAwesomeIcon icon="sort" />
-                </th>
-                <th />
+                {/*<th className="hand" onClick={sort('createdDate')}>*/}
+                {/*  Created Date <FontAwesomeIcon icon="sort" />*/}
+                {/*</th>*/}
+                {/*<th className="hand" onClick={sort('createdBy')}>*/}
+                {/*  Created By <FontAwesomeIcon icon="sort" />*/}
+                {/*</th>*/}
+                {/*<th className="hand" onClick={sort('lastModifiedDate')}>*/}
+                {/*  Last Modified Date <FontAwesomeIcon icon="sort" />*/}
+                {/*</th>*/}
+                {/*<th className="hand" onClick={sort('lastModifiedBy')}>*/}
+                {/*  Last Modified By <FontAwesomeIcon icon="sort" />*/}
+                {/*</th>*/}
+                <th className="text-center">Thao tác</th>
               </tr>
             </thead>
             <tbody>
@@ -184,13 +184,13 @@ export const Company = (props: RouteComponentProps<{ url: string }>) => {
                   <td>{company.description}</td>
                   <td>{company.location}</td>
                   <td>{company.phoneNumber}</td>
-                  <td>{company.createdDate ? <TextFormat type="date" value={company.createdDate} format={APP_DATE_FORMAT} /> : null}</td>
-                  <td>{company.createdBy}</td>
-                  <td>
-                    {company.lastModifiedDate ? <TextFormat type="date" value={company.lastModifiedDate} format={APP_DATE_FORMAT} /> : null}
-                  </td>
-                  <td>{company.lastModifiedBy}</td>
-                  <td className="text-end">
+                  {/*<td>{company.createdDate ? <TextFormat type="date" value={company.createdDate} format={APP_DATE_FORMAT} /> : null}</td>*/}
+                  {/*<td>{company.createdBy}</td>*/}
+                  {/*<td>*/}
+                  {/*  {company.lastModifiedDate ? <TextFormat type="date" value={company.lastModifiedDate} format={APP_DATE_FORMAT} /> : null}*/}
+                  {/*</td>*/}
+                  {/*<td>{company.lastModifiedBy}</td>*/}
+                  <td className="text-center">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/company/${company.id}`} color="info" size="sm" data-cy="entityDetailsButton">
                         <FontAwesomeIcon icon="eye" /> <span className="d-none d-md-inline">View</span>
