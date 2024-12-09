@@ -17,6 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
+import vn.com.datamanager.domain.Company;
 import vn.com.datamanager.domain.SaleOrder;
 import vn.com.datamanager.repository.SaleOrderRepository;
 import vn.com.datamanager.service.SaleOrderQueryService;
@@ -201,5 +202,20 @@ public class SaleOrderResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @PostMapping("/sale-orders/batch")
+    public ResponseEntity<Integer> saveBatchSaleOrders(@RequestBody List<SaleOrder> saleOrders) {
+        log.debug("REST request to save a list of saleOrders : {}", saleOrders);
+        for (SaleOrder saleOrder : saleOrders) {
+            if (saleOrder.getId() != null) {
+                throw new BadRequestAlertException("A new company cannot already have an ID", ENTITY_NAME, "idexists");
+            }
+        }
+        Integer savedCount = saleOrderRepository.saveAll(saleOrders).size();
+        return ResponseEntity
+            .ok()
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, savedCount.toString()))
+            .body(savedCount);
     }
 }
