@@ -100,7 +100,7 @@ function SaleOrderImport() {
     setUploading(true);
     setUploadProgress(0);
 
-    const batchSize = 100;
+    const batchSize = 1000;
     const totalBatches = Math.ceil(totalRecords / batchSize);
 
     for (let batchIndex = 0; batchIndex < totalBatches; batchIndex++) {
