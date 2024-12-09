@@ -4,22 +4,47 @@ import { JhiItemCount, JhiPagination } from 'react-jhipster';
 import { Table, Button, Progress } from 'reactstrap';
 import axios from 'axios';
 
-export interface ISaleOrder {
+export interface ISaleOppo {
   id?: number;
-  orderId?: string | null;
-  contractId?: string | null;
-  ownerEmployeeId?: string | null;
-  productId?: string | null;
-  totalValue?: string | null;
-  orderStageId?: string | null;
-  orderStageName?: string | null;
+  opportunityId?: number | null;
+  opportunityCode?: string;
+  opportunityName?: string;
+  opportunityTypeName?: string | null;
+  startDate?: string | null;
+  closeDate?: string | null;
+  stageId?: number | null;
+  stageReasonId?: number | null;
+  employeeId?: number | null;
+  leadId?: number | null;
+  currencyCode?: string | null;
+  accountId?: number | null;
+  productId?: number | null;
+  salesPricePrd?: number | null;
+  value?: number | null;
 }
 
-function SaleOrderImport() {
+function SaleOppoImport() {
   const [excelData, setExcelData] = useState<string[][]>([]);
   const [columns, setColumns] = useState<string[]>([]);
 
-  const requiredColumns = ['STT', 'orderId', 'contractId', 'ownerEmployeeId', 'productId', 'totalValue', 'orderStageId', 'orderStageName'];
+  const requiredColumns = [
+    'STT',
+    'opportunityId',
+    'opportunityCode',
+    'opportunityName',
+    'opportunityTypeName',
+    'startDate',
+    'closeDate',
+    'stageId',
+    'stageReasonId',
+    'employeeId',
+    'leadId',
+    'currencyCode',
+    'accountId',
+    'productId',
+    'salesPricePrd',
+    'value',
+  ];
 
   const [paginationState, setPaginationState] = useState({
     activePage: 1,
@@ -76,21 +101,30 @@ function SaleOrderImport() {
     reader.readAsArrayBuffer(file);
   };
 
-  const convertToCompanyList = (): ISaleOrder[] => {
+  const convertToList = (): ISaleOppo[] => {
     return excelData.map(row => ({
-      orderId: row[1] || null,
-      contractId: row[2] || null,
-      ownerEmployeeId: row[3] || null,
-      productId: row[4] || null,
-      totalValue: row[5] || null,
-      orderStageName: row[6] || null,
+      opportunityId: Number(row[1]) || null,
+      opportunityCode: row[2] || null,
+      opportunityName: row[3] || null,
+      opportunityTypeName: row[4] || null,
+      startDate: row[5] || null,
+      closeDate: row[6] || null,
+      stageId: Number(row[7]) || null,
+      stageReasonId: Number(row[8]) || null,
+      employeeId: Number(row[9]) || null,
+      leadId: Number(row[10]) || null,
+      currencyCode: row[11] || null,
+      accountId: Number(row[12]) || null,
+      productId: Number(row[13]) || null,
+      salesPricePrd: Number(row[14]) || null,
+      value: Number(row[15]) || null,
     }));
   };
 
   const handlePushToCloud = async () => {
     if (uploading) return; // tránh nhấn nhiều lần
 
-    const companyList = convertToCompanyList();
+    const companyList = convertToList();
     const totalRecords = companyList.length;
     if (totalRecords === 0) {
       alert('Không có dữ liệu để upload.');
@@ -110,7 +144,7 @@ function SaleOrderImport() {
 
       try {
         // Sử dụng axios
-        const response = await axios.post('/api/sale-orders/batch', batchData);
+        const response = await axios.post('/api/sale-opportunities/batch', batchData);
         // Nếu response.status ngoài 2xx, axios sẽ ném lỗi, nên không cần kiểm tra thủ công
 
         // Batch upload thành công, cập nhật tiến trình
@@ -222,4 +256,4 @@ function SaleOrderImport() {
   );
 }
 
-export default SaleOrderImport;
+export default SaleOppoImport;
