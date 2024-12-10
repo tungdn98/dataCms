@@ -207,7 +207,7 @@ public class EmployeeLeadResource {
     }
 
     @PostMapping("/employee-leads/batch")
-    public ResponseEntity<Integer> saveBatchSaleContract(@RequestBody List<EmployeeLead> employeeLeads) {
+    public ResponseEntity<Integer> saveBatchEmployeeLead(@RequestBody List<EmployeeLead> employeeLeads) {
         log.debug("REST request to save a list of employee-leads : {}", employeeLeads);
         for (EmployeeLead employeeLead : employeeLeads) {
             if (employeeLead.getId() != null) {
