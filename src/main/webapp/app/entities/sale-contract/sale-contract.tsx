@@ -12,6 +12,11 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { ISaleContract } from 'app/shared/model/sale-contract.model';
 import { getEntities } from './sale-contract.reducer';
 
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
+import { Dialog } from 'primereact/dialog';
+import SaleContractImport from 'app/entities/sale-contract/sale-contract-import';
+
 export const SaleContract = (props: RouteComponentProps<{ url: string }>) => {
   const dispatch = useAppDispatch();
 
@@ -78,6 +83,49 @@ export const SaleContract = (props: RouteComponentProps<{ url: string }>) => {
     sortEntities();
   };
 
+  // handle excel
+  const [visibleImportDialog, setVisibleImportDialog] = useState(false);
+
+  const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+  const fileExtension = '.xlsx';
+
+  const downloadUploadTemplate = () => {
+    const excelData = [];
+    excelData.push({
+      STT: 1,
+      contractId: '',
+      companyId: '',
+      accountId: '',
+      contactSignedDate: '',
+      contactSignedTitle: '',
+      contractEndDate: '',
+      contractNumber: '',
+      contractNumberInput: '',
+      contractStageId: '',
+      contractStartDate: '',
+      ownerEmployeeId: '',
+      paymentMethodId: '',
+      contractName: '',
+      contractTypeId: 0, //
+      currencyId: '',
+      grandTotal: 0, //
+      paymentTermId: '',
+      quoteId: '',
+      currencyExchangeRateId: '',
+      contractStageName: '',
+      paymentStatusId: '',
+      period: '',
+      payment: '',
+    });
+
+    const ws = XLSX.utils.json_to_sheet(excelData);
+    const wb = { Sheets: { TemplateUploadSaleContract: ws }, SheetNames: ['TemplateUploadSaleContract'] };
+    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const data = new Blob([excelBuffer], { type: fileType });
+    FileSaver.saveAs(data, 'TemplateUploadSaleContract' + fileExtension);
+  };
+  // end handle excel
+
   const { match } = props;
 
   return (
@@ -85,6 +133,15 @@ export const SaleContract = (props: RouteComponentProps<{ url: string }>) => {
       <h2 id="sale-contract-heading" data-cy="SaleContractHeading">
         Sale Contracts
         <div className="d-flex justify-content-end">
+          <Button className="me-2" color="info" onClick={() => downloadUploadTemplate()} disabled={loading}>
+            <i className="pi pi-download" style={{ fontSize: '1rem' }}></i>
+            <span className="ms-1">Download Template</span>
+          </Button>
+
+          <Button className="me-2" color="info" onClick={() => setVisibleImportDialog(true)} disabled={loading}>
+            <i className="pi pi-file-import" style={{ fontSize: '1rem' }}></i>
+            <span className="ms-1">Import Data</span>
+          </Button>
           <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} /> Refresh List
           </Button>
@@ -268,6 +325,16 @@ export const SaleContract = (props: RouteComponentProps<{ url: string }>) => {
       ) : (
         ''
       )}
+
+      <Dialog
+        header="Import dữ liệu sale contract"
+        visible={visibleImportDialog}
+        style={{ width: '70vw' }}
+        onHide={() => setVisibleImportDialog(false)}
+        breakpoints={{ '960px': '75vw', '641px': '100vw' }}
+      >
+        <SaleContractImport />
+      </Dialog>
     </div>
   );
 };
