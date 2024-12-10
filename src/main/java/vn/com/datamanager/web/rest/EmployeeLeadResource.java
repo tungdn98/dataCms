@@ -20,6 +20,7 @@ import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 import vn.com.datamanager.domain.EmployeeLead;
+import vn.com.datamanager.domain.Product;
 import vn.com.datamanager.repository.EmployeeLeadRepository;
 import vn.com.datamanager.service.EmployeeLeadQueryService;
 import vn.com.datamanager.service.EmployeeLeadService;
@@ -203,5 +204,20 @@ public class EmployeeLeadResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @PostMapping("/employee-leads/batch")
+    public ResponseEntity<Integer> saveBatchSaleContract(@RequestBody List<EmployeeLead> employeeLeads) {
+        log.debug("REST request to save a list of employee-leads : {}", employeeLeads);
+        for (EmployeeLead employeeLead : employeeLeads) {
+            if (employeeLead.getId() != null) {
+                throw new BadRequestAlertException("A new product cannot already have an ID", ENTITY_NAME, "idexists");
+            }
+        }
+        Integer savedCount = employeeLeadRepository.saveAll(employeeLeads).size();
+        return ResponseEntity
+            .ok()
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, savedCount.toString()))
+            .body(savedCount);
     }
 }

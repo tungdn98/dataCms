@@ -10,4 +10,16 @@ export interface IEmployeeLead {
   leadSourceName?: string | null;
 }
 
+export class EmployeeLeadImport {
+  STT: number | null = null;
+  leadId?: string | null = null;
+  employeeId?: string | null = null;
+  leadCode?: string | null = null;
+  leadName?: string | null = null;
+  leadPotentialLevelId?: string | null = null;
+  leadSourceId?: string | null = null;
+  leadPotentialLevelName?: string | null = null;
+  leadSourceName?: string | null = null;
+}
+
 export const defaultValue: Readonly<IEmployeeLead> = {};
