@@ -26,4 +26,30 @@ export interface IActivity {
   textStr?: string | null;
 }
 
+export class IActivityImport {
+  STT: number | null = null;
+  activityId?: string | null = null;
+  companyId?: string | null = null;
+  createDate?: string | null = null;
+  deadline?: string | null = null;
+  name?: string | null = null;
+  state?: string | null = null;
+  type?: string | null = null;
+  accountId?: string | null = null;
+  activityTypeId?: string | null = null;
+  objectTypeId?: string | null = null;
+  priorityId?: string | null = null;
+  opportunityId?: string | null = null;
+  orderId?: string | null = null;
+  contractId?: string | null = null;
+  priorityName?: string | null = null;
+  responsibleId?: string | null = null;
+  startDate?: string | null = null;
+  closedOn?: string | null = null;
+  duration?: number | null = null;
+  durationUnitId?: string | null = null;
+  conversion?: number | null = null;
+  textStr?: string | null = null;
+}
+
 export const defaultValue: Readonly<IActivity> = {};
