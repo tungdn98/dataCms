@@ -18,6 +18,8 @@ import { ProductImport } from 'app/shared/model/product.model';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 
+// import { ValidatedField, ValidatedForm } from 'react-jhipster';
+
 export const Activity = (props: RouteComponentProps<{ url: string }>) => {
   const dispatch = useAppDispatch();
 
@@ -126,6 +128,29 @@ export const Activity = (props: RouteComponentProps<{ url: string }>) => {
   };
   // end handle excel
 
+  // handle filter
+  // const handleFilter = values => {
+  //   let endURL = `?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`;
+  //   const searchCriterials = [];
+  //   if (values['name']) {
+  //     endURL += `&name=${values['name']}`;
+  //     searchCriterials['name.contains'] = values['name'];
+  //   }
+  //   dispatch(
+  //     searchEntitiesApplication({
+  //       page: paginationState.activePage - 1,
+  //       size: paginationState.itemsPerPage,
+  //       sort: `${paginationState.sort},${paginationState.order}`,
+  //       searchCriterials,
+  //     })
+  //   );
+  //
+  //   if (props.location.search !== endURL) {
+  //     props.history.push(`${props.location.pathname}${endURL}`);
+  //   }
+  // };
+  // end handle filter
+
   const { match } = props;
 
   return (
@@ -133,6 +158,27 @@ export const Activity = (props: RouteComponentProps<{ url: string }>) => {
       <h2 id="activity-heading" data-cy="ActivityHeading">
         Activities
         <div className="d-flex justify-content-end">
+          {/*<ValidatedForm defaultValues={{}} onSubmit={handleFilter}>*/}
+          {/*  <ValidatedField*/}
+          {/*    label=""*/}
+          {/*    id="application-name"*/}
+          {/*    name="name"*/}
+          {/*    data-cy="name"*/}
+          {/*    type="text"*/}
+          {/*    placeHolder="tên ứng dụng"*/}
+          {/*    className="float-start me-2 mt-1"*/}
+          {/*  />*/}
+
+          {/*  <Button className="me-2" color="success" type="submit" disabled={loading}>*/}
+          {/*    <FontAwesomeIcon icon="sync" spin={loading} /> Tìm kiếm*/}
+          {/*  </Button>*/}
+          {/*  <Link to="/application/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">*/}
+          {/*    <FontAwesomeIcon icon="plus" />*/}
+          {/*    &nbsp;*/}
+          {/*    Tạo mới*/}
+          {/*  </Link>*/}
+          {/*</ValidatedForm>*/}
+
           <Button className="me-2" color="info" onClick={() => downloadUploadTemplate()} disabled={loading}>
             <i className="pi pi-download" style={{ fontSize: '1rem' }}></i>
             <span className="ms-1">Download Template</span>
