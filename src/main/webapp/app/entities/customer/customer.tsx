@@ -9,8 +9,15 @@ import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/shared/util/pagination.cons
 import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { ICustomer } from 'app/shared/model/customer.model';
+import { CustomerImport, ICustomer } from 'app/shared/model/customer.model';
 import { getEntities } from './customer.reducer';
+
+import { Dialog } from 'primereact/dialog';
+import ImportComponent from 'app/shared/util/common-import';
+import { ProductImport } from 'app/shared/model/product.model';
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
+import { EmployeeLeadImport } from 'app/shared/model/employee-lead.model';
 
 export const Customer = (props: RouteComponentProps<{ url: string }>) => {
   const dispatch = useAppDispatch();
@@ -78,6 +85,37 @@ export const Customer = (props: RouteComponentProps<{ url: string }>) => {
     sortEntities();
   };
 
+  // handle excel
+  const [visibleImportDialog, setVisibleImportDialog] = useState(false);
+
+  const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+  const fileExtension = '.xlsx';
+
+  const downloadUploadTemplate = () => {
+    const excelData = [];
+    excelData.push({
+      STT: 1,
+      leadId: '',
+      accountId: '',
+      accountCode: '',
+      accountName: '',
+      mappingAccount: '',
+      accountEmail: '',
+      accountPhone: '',
+      accountTypeName: '',
+      genderName: '',
+      industryName: '',
+      ownerEmployeeId: '',
+    });
+
+    const ws = XLSX.utils.json_to_sheet(excelData);
+    const wb = { Sheets: { TemplateUpload: ws }, SheetNames: ['TemplateUpload'] };
+    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const data = new Blob([excelBuffer], { type: fileType });
+    FileSaver.saveAs(data, 'TemplateUpload' + fileExtension);
+  };
+  // end handle excel
+
   const { match } = props;
 
   return (
@@ -85,6 +123,14 @@ export const Customer = (props: RouteComponentProps<{ url: string }>) => {
       <h2 id="customer-heading" data-cy="CustomerHeading">
         Customers
         <div className="d-flex justify-content-end">
+          <Button className="me-2" color="info" onClick={() => downloadUploadTemplate()} disabled={loading}>
+            <i className="pi pi-download" style={{ fontSize: '1rem' }}></i>
+            <span className="ms-1">Download Template</span>
+          </Button>
+          <Button className="me-2" color="info" onClick={() => setVisibleImportDialog(true)} disabled={loading}>
+            <i className="pi pi-file-import" style={{ fontSize: '1rem' }}></i>
+            <span className="ms-1">Import Data</span>
+          </Button>
           <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} /> Refresh List
           </Button>
@@ -204,6 +250,16 @@ export const Customer = (props: RouteComponentProps<{ url: string }>) => {
       ) : (
         ''
       )}
+
+      <Dialog
+        header="Import dữ liệu Customer"
+        visible={visibleImportDialog}
+        style={{ width: '70vw' }}
+        onHide={() => setVisibleImportDialog(false)}
+        breakpoints={{ '960px': '75vw', '641px': '100vw' }}
+      >
+        <ImportComponent model={CustomerImport} endpoint="/api/customers/batch" />
+      </Dialog>
     </div>
   );
 };
