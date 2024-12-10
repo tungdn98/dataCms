@@ -9,4 +9,15 @@ export interface IProduct {
   productFamilyName?: string | null;
 }
 
+export class ProductImport {
+  STT: number | null = null;
+  productId: string | null = null;
+  productCode: string | null = null;
+  productFamilyId: string | null = null;
+  productPriceId: string | null = null;
+  productName: string | null = null;
+  productFamilyCode: string | null = null;
+  productFamilyName: string | null = null;
+}
+
 export const defaultValue: Readonly<IProduct> = {};
