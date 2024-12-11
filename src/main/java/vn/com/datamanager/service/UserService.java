@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tech.jhipster.security.RandomUtil;
 import vn.com.datamanager.config.Constants;
 import vn.com.datamanager.domain.Authority;
+import vn.com.datamanager.domain.Employee;
 import vn.com.datamanager.domain.User;
 import vn.com.datamanager.repository.AuthorityRepository;
 import vn.com.datamanager.repository.UserRepository;
@@ -159,7 +160,7 @@ public class UserService {
         } else {
             user.setLangKey(userDTO.getLangKey());
         }
-        String encryptedPassword = passwordEncoder.encode(RandomUtil.generatePassword());
+        String encryptedPassword = passwordEncoder.encode(userDTO.getPassword());
         user.setPassword(encryptedPassword);
         user.setResetKey(RandomUtil.generateResetKey());
         user.setResetDate(Instant.now());

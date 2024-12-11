@@ -38,6 +38,8 @@ public class AdminUserDTO {
     @Size(min = 2, max = 10)
     private String langKey;
 
+    private String password;
+
     private String createdBy;
 
     private Instant createdDate;
@@ -66,6 +68,14 @@ public class AdminUserDTO {
         this.lastModifiedBy = user.getLastModifiedBy();
         this.lastModifiedDate = user.getLastModifiedDate();
         this.authorities = user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet());
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Long getId() {

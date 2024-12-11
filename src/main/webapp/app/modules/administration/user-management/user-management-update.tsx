@@ -28,6 +28,7 @@ export const UserManagementUpdate = (props: RouteComponentProps<{ login: string 
   };
 
   const saveUser = values => {
+    values.langKey = 'en';
     if (isNew) {
       dispatch(createUser(values));
     } else {
@@ -76,6 +77,29 @@ export const UserManagementUpdate = (props: RouteComponentProps<{ login: string 
                   maxLength: {
                     value: 50,
                     message: 'Your username cannot be longer than 50 characters.',
+                  },
+                }}
+              />
+              <ValidatedField
+                type="text"
+                name="password"
+                label="password"
+                validate={{
+                  required: {
+                    value: true,
+                    message: 'Your password is required.',
+                  },
+                  pattern: {
+                    value: /^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$/,
+                    message: 'Your password is invalid.',
+                  },
+                  minLength: {
+                    value: 1,
+                    message: 'Your password is required to be at least 1 character.',
+                  },
+                  maxLength: {
+                    value: 50,
+                    message: 'Your password cannot be longer than 50 characters.',
                   },
                 }}
               />
