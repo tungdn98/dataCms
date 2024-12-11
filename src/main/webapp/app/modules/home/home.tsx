@@ -13,7 +13,7 @@ export const Home = () => {
   return (
     <Row>
       <Col md="3" className="pad">
-        <span className="hipster rounded" />
+        {/*<span className="hipster rounded" />*/}
       </Col>
       <Col md="9">
         <h2>Welcome to the admin page!</h2>
