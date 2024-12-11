@@ -8,6 +8,9 @@ import LoadingBar from 'react-redux-loading-bar';
 import { Home, Brand } from './header-components';
 import { AdminMenu, EntitiesMenu, AccountMenu } from '../menus';
 import { ConfigMenu } from 'app/shared/layout/menus/config-menu';
+import { FinanceMenu } from 'app/shared/layout/menus/finance-menu';
+import { ProjectManagmentMenu } from 'app/shared/layout/menus/project-management-menu';
+
 
 export interface IHeaderProps {
   isAuthenticated: boolean;
@@ -42,6 +45,8 @@ const Header = (props: IHeaderProps) => {
           <Nav id="header-tabs" className="ms-auto" navbar>
             <Home />
             {props.isAuthenticated && <EntitiesMenu />}
+            {props.isAuthenticated && props.isAdmin && <FinanceMenu showOpenAPI={props.isOpenAPIEnabled} />}
+            {props.isAuthenticated && props.isAdmin && <ProjectManagmentMenu showOpenAPI={props.isOpenAPIEnabled} />}
             {props.isAuthenticated && props.isAdmin && <ConfigMenu showOpenAPI={props.isOpenAPIEnabled} />}
             {props.isAuthenticated && props.isAdmin && <AdminMenu showOpenAPI={props.isOpenAPIEnabled} />}
             <AccountMenu isAuthenticated={props.isAuthenticated} />
