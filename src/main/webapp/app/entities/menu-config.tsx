@@ -6,25 +6,25 @@ const ConfigMenuList = () => {
   return (
     <>
       {/* prettier-ignore */}
-      <MenuItem icon="asterisk" to="/config">
+      <MenuItem icon="wrench" to="/config">
         Config
       </MenuItem>
-      <MenuItem icon="asterisk" to="/config-log">
+      <MenuItem icon="file-pen" to="/config-log">
         Config Log
       </MenuItem>
-      <MenuItem icon="asterisk" to="/emp-group">
+      <MenuItem icon="users-cog" to="/emp-group">
         Emp Group
       </MenuItem>
-      <MenuItem icon="asterisk" to="/employee">
+      <MenuItem icon="circle-user" to="/employee">
         Employee
       </MenuItem>
-      <MenuItem icon="asterisk" to="/login-history">
+      <MenuItem icon="clock-rotate-left" to="/login-history">
         Login History
       </MenuItem>
-      <MenuItem icon="asterisk" to="/role-group">
+      <MenuItem icon="layer-group" to="/role-group">
         Role Group
       </MenuItem>
-      <MenuItem icon="asterisk" to="/roles">
+      <MenuItem icon="hat-cowboy" to="/roles">
         Roles
       </MenuItem>
       {/* jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here */}

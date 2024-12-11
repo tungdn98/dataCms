@@ -22,7 +22,6 @@ import { faRoad } from '@fortawesome/free-solid-svg-icons/faRoad';
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons/faSignInAlt';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons/faSignOutAlt';
 import { faTachometerAlt } from '@fortawesome/free-solid-svg-icons/faTachometerAlt';
-import { faTasks } from '@fortawesome/free-solid-svg-icons/faTasks';
 import { faThList } from '@fortawesome/free-solid-svg-icons/faThList';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons/faTimesCircle';
 import { faTrash } from '@fortawesome/free-solid-svg-icons/faTrash';
@@ -31,6 +30,29 @@ import { faUserPlus } from '@fortawesome/free-solid-svg-icons/faUserPlus';
 import { faUsers } from '@fortawesome/free-solid-svg-icons/faUsers';
 import { faUsersCog } from '@fortawesome/free-solid-svg-icons/faUsersCog';
 import { faWrench } from '@fortawesome/free-solid-svg-icons/faWrench';
+import { faFilePen } from '@fortawesome/free-solid-svg-icons/faFilePen';
+import { faClockRotateLeft } from '@fortawesome/free-solid-svg-icons/faclockRotateLeft';
+import { faLayerGroup } from '@fortawesome/free-solid-svg-icons/faLayerGroup';
+import { faHatCowboy } from '@fortawesome/free-solid-svg-icons/faHatCowboy';
+import { faCircleUser } from '@fortawesome/free-solid-svg-icons/faCircleUser';
+import { faBuilding } from '@fortawesome/free-solid-svg-icons/faBuilding';
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons/faCartShopping';
+import { faFileContract } from '@fortawesome/free-solid-svg-icons/faFileContract';
+
+import { faBox } from '@fortawesome/free-solid-svg-icons/faBox'; // Product
+import { faCreditCard } from '@fortawesome/free-solid-svg-icons/faCreditCard'; // Payment Term
+import { faChartLine } from '@fortawesome/free-solid-svg-icons/faChartLine'; // Opportunity Stage
+import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons/faExclamationCircle'; // Opportunity Stage Reason
+import { faUserTie } from '@fortawesome/free-solid-svg-icons/faUserTie'; // Employee Lead
+import { faUserFriends } from '@fortawesome/free-solid-svg-icons/faUserFriends'; // Customer
+import { faMoneyBillWave } from '@fortawesome/free-solid-svg-icons/faMoneyBillWave'; // Currency
+import { faFileSignature } from '@fortawesome/free-solid-svg-icons/faFileSignature'; // Contract Type
+import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons/faCalendarAlt'; // Activity
+import { faTasks } from '@fortawesome/free-solid-svg-icons/faTasks'; // Activity Type
+import { faObjectGroup } from '@fortawesome/free-solid-svg-icons/faObjectGroup'; // Activity Object
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons/faCheckCircle'; // Payment Status
+import { faWallet } from '@fortawesome/free-solid-svg-icons/faWallet'; // Payment Method
+import { faRulerCombined } from '@fortawesome/free-solid-svg-icons/faRulerCombined'; // Unit
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 
@@ -68,6 +90,28 @@ export const loadIcons = () => {
     faUserPlus,
     faUsers,
     faUsersCog,
-    faWrench
+    faWrench,
+    faFilePen,
+    faClockRotateLeft,
+    faLayerGroup,
+    faHatCowboy,
+    faCircleUser,
+    faBuilding,
+    faCartShopping,
+    faFileContract,
+    faBox,
+    faCreditCard,
+    faChartLine,
+    faExclamationCircle,
+    faUserTie,
+    faUserFriends,
+    faMoneyBillWave,
+    faFileSignature,
+    faCalendarAlt,
+    faTasks,
+    faObjectGroup,
+    faCheckCircle,
+    faWallet,
+    faRulerCombined
   );
 };

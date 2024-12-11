@@ -5,58 +5,58 @@ import MenuItem from 'app/shared/layout/menus/menu-item';
 const EntitiesMenu = () => {
   return (
     <>
-      <MenuItem icon="asterisk" to="/company">
+      <MenuItem icon="building" to="/company">
         Company
       </MenuItem>
-      <MenuItem icon="asterisk" to="/sale-order">
+      <MenuItem icon="cart-shopping" to="/sale-order">
         Sale Order
       </MenuItem>
       <MenuItem icon="asterisk" to="/sale-opportunity">
         Sale Opportunity
       </MenuItem>
-      <MenuItem icon="asterisk" to="/sale-contract">
+      <MenuItem icon="file-contract" to="/sale-contract">
         Sale Contract
       </MenuItem>
-      <MenuItem icon="asterisk" to="/product">
+      <MenuItem icon="box" to="/product">
         Product
       </MenuItem>
-      <MenuItem icon="asterisk" to="/payment-term">
+      <MenuItem icon="credit-card" to="/payment-term">
         Payment Term
       </MenuItem>
-      <MenuItem icon="asterisk" to="/opportunity-stage">
+      <MenuItem icon="chart-line" to="/opportunity-stage">
         Opportunity Stage
       </MenuItem>
-      <MenuItem icon="asterisk" to="/opportunity-stage-reason">
+      <MenuItem icon="exclamation-circle" to="/opportunity-stage-reason">
         Opportunity Stage Reason
       </MenuItem>
-      <MenuItem icon="asterisk" to="/employee-lead">
+      <MenuItem icon="user-tie" to="/employee-lead">
         Employee Lead
       </MenuItem>
-      <MenuItem icon="asterisk" to="/customer">
+      <MenuItem icon="user-friends" to="/customer">
         Customer
       </MenuItem>
-      <MenuItem icon="asterisk" to="/currency">
+      <MenuItem icon="money-bill-wave" to="/currency">
         Currency
       </MenuItem>
-      <MenuItem icon="asterisk" to="/contract-type">
+      <MenuItem icon="file-signature" to="/contract-type">
         Contract Type
       </MenuItem>
-      <MenuItem icon="asterisk" to="/activity">
+      <MenuItem icon="calendar-alt" to="/activity">
         Activity
       </MenuItem>
-      <MenuItem icon="asterisk" to="/activity-type">
+      <MenuItem icon="tasks" to="/activity-type">
         Activity Type
       </MenuItem>
-      <MenuItem icon="asterisk" to="/activity-object">
+      <MenuItem icon="object-group" to="/activity-object">
         Activity Object
       </MenuItem>
-      <MenuItem icon="asterisk" to="/payment-status">
+      <MenuItem icon="check-circle" to="/payment-status">
         Payment Status
       </MenuItem>
-      <MenuItem icon="asterisk" to="/payment-method">
+      <MenuItem icon="wallet" to="/payment-method">
         Payment Method
       </MenuItem>
-      <MenuItem icon="asterisk" to="/unit">
+      <MenuItem icon="ruler-combined" to="/unit">
         Unit
       </MenuItem>
       {/* jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here */}
