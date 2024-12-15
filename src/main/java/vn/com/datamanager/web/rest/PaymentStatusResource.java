@@ -202,4 +202,19 @@ public class PaymentStatusResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
     }
+    @PostMapping("/payment_status/batch")
+    public ResponseEntity<Integer> saveBatchSaleContract(@RequestBody List<PaymentStatus> paymentStatuses) {
+        log.debug("REST request to save a list of payment status : {}", paymentStatuses);
+        for (PaymentStatus paymentStatus : paymentStatuses) {
+            if (paymentStatus.getId() != null) {
+                throw new BadRequestAlertException("A new product cannot already have an ID", ENTITY_NAME, "idexists");
+            }
+        }
+        Integer savedCount = paymentStatusRepository.saveAll(paymentStatuses).size();
+        return ResponseEntity
+            .ok()
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, savedCount.toString()))
+            .body(savedCount);
+    }
+
 }

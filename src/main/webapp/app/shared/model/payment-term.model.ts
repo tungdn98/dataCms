@@ -5,4 +5,12 @@ export interface IPaymentTerm {
   paymentTermName?: string | null;
 }
 
+
+export class PaymentTermImport {
+  STT: number | null = null;
+  paymentTermId: string | null = null;
+  paymentTermCode: string | null = null;
+  paymentTermName: string | null = null;
+}
+
 export const defaultValue: Readonly<IPaymentTerm> = {};

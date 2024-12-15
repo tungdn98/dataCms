@@ -15,7 +15,6 @@ import { getEntities } from './product.reducer';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { Dialog } from 'primereact/dialog';
-import SaleOppoImport from 'app/entities/sale-opportunity/sale-oppo-import';
 import ImportComponent from 'app/shared/util/common-import';
 
 export const Product = (props: RouteComponentProps<{ url: string }>) => {

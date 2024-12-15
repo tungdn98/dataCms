@@ -18,6 +18,7 @@ import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 import vn.com.datamanager.domain.PaymentTerm;
+import vn.com.datamanager.domain.Product;
 import vn.com.datamanager.repository.PaymentTermRepository;
 import vn.com.datamanager.service.PaymentTermQueryService;
 import vn.com.datamanager.service.PaymentTermService;
@@ -201,5 +202,20 @@ public class PaymentTermResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @PostMapping("/payment_term/batch")
+    public ResponseEntity<Integer> saveBatchSaleContract(@RequestBody List<PaymentTerm> paymentTerms) {
+        log.debug("REST request to save a list of payment terms : {}", paymentTerms);
+        for (PaymentTerm paymentTerm : paymentTerms) {
+            if (paymentTerm.getId() != null) {
+                throw new BadRequestAlertException("A new payment term cannot already have an ID", ENTITY_NAME, "idexists");
+            }
+        }
+        Integer savedCount = paymentTermRepository.saveAll(paymentTerms).size();
+        return ResponseEntity
+            .ok()
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, savedCount.toString()))
+            .body(savedCount);
     }
 }

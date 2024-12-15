@@ -202,4 +202,19 @@ public class ActivityObjectResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    @PostMapping("/activity_objects/batch")
+    public ResponseEntity<Integer> saveBatchSaleContract(@RequestBody List<ActivityObject> activityObjects) {
+        log.debug("REST request to save a list of activity object : {}", activityObjects);
+        for (ActivityObject activityObject : activityObjects) {
+            if (activityObject.getId() != null) {
+                throw new BadRequestAlertException("A new product cannot already have an ID", ENTITY_NAME, "idexists");
+            }
+        }
+        Integer savedCount = activityObjectRepository.saveAll(activityObjects).size();
+        return ResponseEntity
+            .ok()
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, savedCount.toString()))
+            .body(savedCount);
+    }
 }
