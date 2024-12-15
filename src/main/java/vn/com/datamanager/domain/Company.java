@@ -14,7 +14,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "company")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Company extends AbstractAuditingEntity implements Serializable {
+public class Company implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -38,6 +38,18 @@ public class Company extends AbstractAuditingEntity implements Serializable {
 
     @Column(name = "phone_number")
     private String phoneNumber;
+
+    @Column(name = "created_date")
+    private Instant createdDate;
+
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "last_modified_date")
+    private Instant lastModifiedDate;
+
+    @Column(name = "last_modified_by")
+    private String lastModifiedBy;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -119,14 +131,56 @@ public class Company extends AbstractAuditingEntity implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
+    public Instant getCreatedDate() {
+        return this.createdDate;
+    }
+
+    public Company createdDate(Instant createdDate) {
+        this.setCreatedDate(createdDate);
+        return this;
+    }
+
+    public void setCreatedDate(Instant createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getCreatedBy() {
+        return this.createdBy;
+    }
+
+    public Company createdBy(String createdBy) {
+        this.setCreatedBy(createdBy);
+        return this;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Instant getLastModifiedDate() {
+        return this.lastModifiedDate;
+    }
+
     public Company lastModifiedDate(Instant lastModifiedDate) {
         this.setLastModifiedDate(lastModifiedDate);
         return this;
     }
 
+    public void setLastModifiedDate(Instant lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public String getLastModifiedBy() {
+        return this.lastModifiedBy;
+    }
+
     public Company lastModifiedBy(String lastModifiedBy) {
         this.setLastModifiedBy(lastModifiedBy);
         return this;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

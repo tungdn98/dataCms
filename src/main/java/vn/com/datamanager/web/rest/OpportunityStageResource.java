@@ -18,7 +18,6 @@ import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 import vn.com.datamanager.domain.OpportunityStage;
-import vn.com.datamanager.domain.Product;
 import vn.com.datamanager.repository.OpportunityStageRepository;
 import vn.com.datamanager.service.OpportunityStageQueryService;
 import vn.com.datamanager.service.OpportunityStageService;
@@ -203,19 +202,5 @@ public class OpportunityStageResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
-    }
-    @PostMapping("/opportunity-stage/batch")
-    public ResponseEntity<Integer> saveBatchSaleContract(@RequestBody List<OpportunityStage> opportunityStages) {
-        log.debug("REST request to save a list of opportunityStages : {}", opportunityStages);
-        for (OpportunityStage opportunityStage : opportunityStages) {
-            if (opportunityStage.getId() != null) {
-                throw new BadRequestAlertException("A new opportunityStage cannot already have an ID", ENTITY_NAME, "idexists");
-            }
-        }
-        Integer savedCount = opportunityStageRepository.saveAll(opportunityStages).size();
-        return ResponseEntity
-            .ok()
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, savedCount.toString()))
-            .body(savedCount);
     }
 }

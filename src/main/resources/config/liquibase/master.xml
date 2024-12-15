@@ -40,6 +40,8 @@
     <include file="config/liquibase/changelog/20241205022017_added_entity_PaymentStatus.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20241205022018_added_entity_PaymentMethod.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20241205022019_added_entity_Unit.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241211170232_added_entity_Tungdn.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20241215084532_added_entity_Turnover.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20241205021957_added_entity_constraints_EmpGroup.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20241205021958_added_entity_constraints_Employee.xml" relativeToChangelogFile="false"/>

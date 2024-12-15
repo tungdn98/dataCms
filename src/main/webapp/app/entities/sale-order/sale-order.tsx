@@ -12,11 +12,6 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { ISaleOrder } from 'app/shared/model/sale-order.model';
 import { getEntities } from './sale-order.reducer';
 
-import * as XLSX from 'xlsx';
-import * as FileSaver from 'file-saver';
-import { Dialog } from 'primereact/dialog';
-import SaleOrderImport from 'app/entities/sale-order/sale-order-import';
-
 export const SaleOrder = (props: RouteComponentProps<{ url: string }>) => {
   const dispatch = useAppDispatch();
 
@@ -83,33 +78,6 @@ export const SaleOrder = (props: RouteComponentProps<{ url: string }>) => {
     sortEntities();
   };
 
-  // handle excel
-  const [visibleImportDialog, setVisibleImportDialog] = useState(false);
-
-  const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-  const fileExtension = '.xlsx';
-
-  const downloadUploadSaleOrderTemplate = () => {
-    const excelData = [];
-    excelData.push({
-      STT: 1,
-      orderId: '',
-      contractId: '',
-      ownerEmployeeId: '',
-      productId: '',
-      totalValue: '',
-      orderStageId: '',
-      orderStageName: '',
-    });
-
-    const ws = XLSX.utils.json_to_sheet(excelData);
-    const wb = { Sheets: { TemplateUploadSaleOrder: ws }, SheetNames: ['TemplateUploadSaleOrder'] };
-    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-    const data = new Blob([excelBuffer], { type: fileType });
-    FileSaver.saveAs(data, 'TemplateUploadSaleOrder' + fileExtension);
-  };
-  // end handle excel
-
   const { match } = props;
 
   return (
@@ -117,16 +85,6 @@ export const SaleOrder = (props: RouteComponentProps<{ url: string }>) => {
       <h2 id="sale-order-heading" data-cy="SaleOrderHeading">
         Sale Orders
         <div className="d-flex justify-content-end">
-          <Button className="me-2" color="info" onClick={() => downloadUploadSaleOrderTemplate()} disabled={loading}>
-            <i className="pi pi-download" style={{ fontSize: '1rem' }}></i>
-            <span className="ms-1">Download Template</span>
-          </Button>
-
-          <Button className="me-2" color="info" onClick={() => setVisibleImportDialog(true)} disabled={loading}>
-            <i className="pi pi-file-import" style={{ fontSize: '1rem' }}></i>
-            <span className="ms-1">Import Data</span>
-          </Button>
-
           <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} /> Refresh List
           </Button>
@@ -165,19 +123,19 @@ export const SaleOrder = (props: RouteComponentProps<{ url: string }>) => {
                 <th className="hand" onClick={sort('orderStageName')}>
                   Order Stage Name <FontAwesomeIcon icon="sort" />
                 </th>
-                {/*<th className="hand" onClick={sort('createdDate')}>*/}
-                {/*  Created Date <FontAwesomeIcon icon="sort" />*/}
-                {/*</th>*/}
-                {/*<th className="hand" onClick={sort('createdBy')}>*/}
-                {/*  Created By <FontAwesomeIcon icon="sort" />*/}
-                {/*</th>*/}
-                {/*<th className="hand" onClick={sort('lastModifiedDate')}>*/}
-                {/*  Last Modified Date <FontAwesomeIcon icon="sort" />*/}
-                {/*</th>*/}
-                {/*<th className="hand" onClick={sort('lastModifiedBy')}>*/}
-                {/*  Last Modified By <FontAwesomeIcon icon="sort" />*/}
-                {/*</th>*/}
-                <th>Action</th>
+                <th className="hand" onClick={sort('createdDate')}>
+                  Created Date <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={sort('createdBy')}>
+                  Created By <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={sort('lastModifiedDate')}>
+                  Last Modified Date <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={sort('lastModifiedBy')}>
+                  Last Modified By <FontAwesomeIcon icon="sort" />
+                </th>
+                <th />
               </tr>
             </thead>
             <tbody>
@@ -195,17 +153,17 @@ export const SaleOrder = (props: RouteComponentProps<{ url: string }>) => {
                   <td>{saleOrder.totalValue}</td>
                   <td>{saleOrder.orderStageId}</td>
                   <td>{saleOrder.orderStageName}</td>
-                  {/*<td>*/}
-                  {/*  {saleOrder.createdDate ? <TextFormat type="date" value={saleOrder.createdDate} format={APP_DATE_FORMAT} /> : null}*/}
-                  {/*</td>*/}
-                  {/*<td>{saleOrder.createdBy}</td>*/}
-                  {/*<td>*/}
-                  {/*  {saleOrder.lastModifiedDate ? (*/}
-                  {/*    <TextFormat type="date" value={saleOrder.lastModifiedDate} format={APP_DATE_FORMAT} />*/}
-                  {/*  ) : null}*/}
-                  {/*</td>*/}
-                  {/*<td>{saleOrder.lastModifiedBy}</td>*/}
-                  <td className="text-center">
+                  <td>
+                    {saleOrder.createdDate ? <TextFormat type="date" value={saleOrder.createdDate} format={APP_DATE_FORMAT} /> : null}
+                  </td>
+                  <td>{saleOrder.createdBy}</td>
+                  <td>
+                    {saleOrder.lastModifiedDate ? (
+                      <TextFormat type="date" value={saleOrder.lastModifiedDate} format={APP_DATE_FORMAT} />
+                    ) : null}
+                  </td>
+                  <td>{saleOrder.lastModifiedBy}</td>
+                  <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/sale-order/${saleOrder.id}`} color="info" size="sm" data-cy="entityDetailsButton">
                         <FontAwesomeIcon icon="eye" /> <span className="d-none d-md-inline">View</span>
@@ -256,16 +214,6 @@ export const SaleOrder = (props: RouteComponentProps<{ url: string }>) => {
       ) : (
         ''
       )}
-
-      <Dialog
-        header="Import dữ liệu sale order"
-        visible={visibleImportDialog}
-        style={{ width: '70vw' }}
-        onHide={() => setVisibleImportDialog(false)}
-        breakpoints={{ '960px': '75vw', '641px': '100vw' }}
-      >
-        <SaleOrderImport />
-      </Dialog>
     </div>
   );
 };

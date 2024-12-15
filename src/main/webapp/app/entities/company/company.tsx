@@ -11,10 +11,6 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { ICompany } from 'app/shared/model/company.model';
 import { getEntities } from './company.reducer';
-import * as XLSX from 'xlsx';
-import * as FileSaver from 'file-saver';
-import { Dialog } from 'primereact/dialog';
-import CompanyImport from 'app/entities/company/company-import';
 
 export const Company = (props: RouteComponentProps<{ url: string }>) => {
   const dispatch = useAppDispatch();
@@ -82,31 +78,6 @@ export const Company = (props: RouteComponentProps<{ url: string }>) => {
     sortEntities();
   };
 
-  // handle excel
-  const [visibleImportDialog, setVisibleImportDialog] = useState(false);
-
-  const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-  const fileExtension = '.xlsx';
-
-  const downloadUploadCompanyTemplate = () => {
-    const excelData = [];
-    excelData.push({
-      STT: 1,
-      companyCode: '',
-      companyName: '',
-      description: '',
-      location: '',
-      phoneNumber: '',
-    });
-
-    const ws = XLSX.utils.json_to_sheet(excelData);
-    const wb = { Sheets: { TemplateUploadCompany: ws }, SheetNames: ['TemplateUploadCompany'] };
-    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-    const data = new Blob([excelBuffer], { type: fileType });
-    FileSaver.saveAs(data, 'TemplateUploadCompany' + fileExtension);
-  };
-  // end handle excel
-
   const { match } = props;
 
   return (
@@ -114,16 +85,6 @@ export const Company = (props: RouteComponentProps<{ url: string }>) => {
       <h2 id="company-heading" data-cy="CompanyHeading">
         Companies
         <div className="d-flex justify-content-end">
-          <Button className="me-2" color="info" onClick={() => downloadUploadCompanyTemplate()} disabled={loading}>
-            <i className="pi pi-download" style={{ fontSize: '1rem' }}></i>
-            <span className="ms-1">Download Template</span>
-          </Button>
-
-          <Button className="me-2" color="info" onClick={() => setVisibleImportDialog(true)} disabled={loading}>
-            <i className="pi pi-file-import" style={{ fontSize: '1rem' }}></i>
-            <span className="ms-1">Import Data</span>
-          </Button>
-
           <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} /> Refresh List
           </Button>
@@ -156,19 +117,19 @@ export const Company = (props: RouteComponentProps<{ url: string }>) => {
                 <th className="hand" onClick={sort('phoneNumber')}>
                   Phone Number <FontAwesomeIcon icon="sort" />
                 </th>
-                {/*<th className="hand" onClick={sort('createdDate')}>*/}
-                {/*  Created Date <FontAwesomeIcon icon="sort" />*/}
-                {/*</th>*/}
-                {/*<th className="hand" onClick={sort('createdBy')}>*/}
-                {/*  Created By <FontAwesomeIcon icon="sort" />*/}
-                {/*</th>*/}
-                {/*<th className="hand" onClick={sort('lastModifiedDate')}>*/}
-                {/*  Last Modified Date <FontAwesomeIcon icon="sort" />*/}
-                {/*</th>*/}
-                {/*<th className="hand" onClick={sort('lastModifiedBy')}>*/}
-                {/*  Last Modified By <FontAwesomeIcon icon="sort" />*/}
-                {/*</th>*/}
-                <th className="text-center">Thao tác</th>
+                <th className="hand" onClick={sort('createdDate')}>
+                  Created Date <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={sort('createdBy')}>
+                  Created By <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={sort('lastModifiedDate')}>
+                  Last Modified Date <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={sort('lastModifiedBy')}>
+                  Last Modified By <FontAwesomeIcon icon="sort" />
+                </th>
+                <th />
               </tr>
             </thead>
             <tbody>
@@ -184,13 +145,13 @@ export const Company = (props: RouteComponentProps<{ url: string }>) => {
                   <td>{company.description}</td>
                   <td>{company.location}</td>
                   <td>{company.phoneNumber}</td>
-                  {/*<td>{company.createdDate ? <TextFormat type="date" value={company.createdDate} format={APP_DATE_FORMAT} /> : null}</td>*/}
-                  {/*<td>{company.createdBy}</td>*/}
-                  {/*<td>*/}
-                  {/*  {company.lastModifiedDate ? <TextFormat type="date" value={company.lastModifiedDate} format={APP_DATE_FORMAT} /> : null}*/}
-                  {/*</td>*/}
-                  {/*<td>{company.lastModifiedBy}</td>*/}
-                  <td className="text-center">
+                  <td>{company.createdDate ? <TextFormat type="date" value={company.createdDate} format={APP_DATE_FORMAT} /> : null}</td>
+                  <td>{company.createdBy}</td>
+                  <td>
+                    {company.lastModifiedDate ? <TextFormat type="date" value={company.lastModifiedDate} format={APP_DATE_FORMAT} /> : null}
+                  </td>
+                  <td>{company.lastModifiedBy}</td>
+                  <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/company/${company.id}`} color="info" size="sm" data-cy="entityDetailsButton">
                         <FontAwesomeIcon icon="eye" /> <span className="d-none d-md-inline">View</span>
@@ -241,16 +202,6 @@ export const Company = (props: RouteComponentProps<{ url: string }>) => {
       ) : (
         ''
       )}
-
-      <Dialog
-        header="Import dữ liệu Companys"
-        visible={visibleImportDialog}
-        style={{ width: '70vw' }}
-        onHide={() => setVisibleImportDialog(false)}
-        breakpoints={{ '960px': '75vw', '641px': '100vw' }}
-      >
-        <CompanyImport />
-      </Dialog>
     </div>
   );
 };

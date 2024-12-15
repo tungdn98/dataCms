@@ -4,9 +4,4 @@ export interface IActivityObject {
   unitName?: string | null;
 }
 
-export class ActivityObjectImport {
-  STT: number | null = null;
-  unitCode: string | null = null;
-  unitName?: string | null;
-}
 export const defaultValue: Readonly<IActivityObject> = {};
