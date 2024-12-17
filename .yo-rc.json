@@ -44,14 +44,15 @@
       "ActivityObject",
       "PaymentStatus",
       "PaymentMethod",
-      "Unit"
+      "Unit",
+      "Finalcial"
     ],
     "entitySuffix": "",
     "jhiPrefix": "jhi",
     "jhipsterVersion": "7.8.1",
     "jwtSecretKey": "ZjFhMWVmNDI0YTQ3MTQ2YjFjODFiYzQ1MzE0OGQ5ZjY2NjhhNGUzMjYwOTk2NDkzYTc5Njc2N2Y4MzlmMTcxOWU3NzUyYWZiZmJhYzU1NDZjNTc1ZGQ3YzQ0Mjc4MzA5ODFmNTQ5NjU4MjNiZjQ4YjYxNDA5ZDA4ZjgxOTYyZjg=",
     "languages": ["en", "fr"],
-    "lastLiquibaseTimestamp": 1733365219000,
+    "lastLiquibaseTimestamp": 1734456564000,
     "messageBroker": false,
     "nativeLanguage": "en",
     "otherModules": [],

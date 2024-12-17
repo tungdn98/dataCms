@@ -1,0 +1,28 @@
+{
+  "changelogDate": "20241217172924",
+  "dto": "no",
+  "fields": [
+    {
+      "fieldName": "code",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "customerName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "customerShortName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "customerType",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Finalcial",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}
