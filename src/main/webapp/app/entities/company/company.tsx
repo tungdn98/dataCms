@@ -15,9 +15,28 @@ import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { Dialog } from 'primereact/dialog';
 import CompanyImport from 'app/entities/company/company-import';
+import SearchComponent from 'app/shared/util/search-component';
 
 export const Company = (props: RouteComponentProps<{ url: string }>) => {
   const dispatch = useAppDispatch();
+
+  // Example field configuration:
+  const searchFieldTemplate = [
+    {
+      name: 'nameCamp',
+      label: 'nameCamp',
+      searchKey: 'nameCamp',
+      searchType: 'contains', // Customize search type as needed
+      className: 'float-start me-2',
+    },
+    {
+      name: 'codeCamp',
+      label: 'codeCamp',
+      searchKey: 'codeCamp',
+      searchType: 'equals',
+      className: 'float-start me-2',
+    },
+  ];
 
   const [paginationState, setPaginationState] = useState(
     overridePaginationStateWithQueryParams(getSortState(props.location, ITEMS_PER_PAGE, 'id'), props.location.search)
@@ -107,13 +126,24 @@ export const Company = (props: RouteComponentProps<{ url: string }>) => {
   };
   // end handle excel
 
+  //handle search
+  const handleSearch = data => {
+    console.log(data);
+  };
+  // end handle search
+
   const { match } = props;
 
   return (
     <div>
       <h2 id="company-heading" data-cy="CompanyHeading">
         Companies
-        <div className="d-flex justify-content-end">
+        <div className="d-flex justify-content-end" style={{ height: '50px' }}>
+          {/*<SearchComponent*/}
+          {/*  fields={searchFieldTemplate}*/}
+          {/*  onSubmit={handleSearch}*/}
+          {/*/>*/}
+
           <Button className="me-2" color="info" onClick={() => downloadUploadCompanyTemplate()} disabled={loading}>
             <i className="pi pi-download" style={{ fontSize: '1rem' }}></i>
             <span className="ms-1">Download Template</span>
@@ -122,10 +152,6 @@ export const Company = (props: RouteComponentProps<{ url: string }>) => {
           <Button className="me-2" color="info" onClick={() => setVisibleImportDialog(true)} disabled={loading}>
             <i className="pi pi-file-import" style={{ fontSize: '1rem' }}></i>
             <span className="ms-1">Import Data</span>
-          </Button>
-
-          <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
-            <FontAwesomeIcon icon="sync" spin={loading} /> Refresh List
           </Button>
           <Link to="/company/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
             <FontAwesomeIcon icon="plus" />
