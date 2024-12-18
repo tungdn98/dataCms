@@ -59,9 +59,6 @@ const EntitiesMenu = () => {
       <MenuItem icon="ruler-combined" to="/unit">
         Unit
       </MenuItem>
-      <MenuItem icon="asterisk" to="/finalcial">
-        Finalcial
-      </MenuItem>
       {/* jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here */}
     </>
   );
