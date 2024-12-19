@@ -20,7 +20,7 @@ import SearchComponent from 'app/shared/util/search-component';
 export const Company = (props: RouteComponentProps<{ url: string }>) => {
   const dispatch = useAppDispatch();
 
-  // Example field configuration:
+  // field configuration search:
   const searchFieldTemplate = [
     {
       name: 'companyCode',

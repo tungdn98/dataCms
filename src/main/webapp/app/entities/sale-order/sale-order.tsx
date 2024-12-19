@@ -16,8 +16,44 @@ import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { Dialog } from 'primereact/dialog';
 import SaleOrderImport from 'app/entities/sale-order/sale-order-import';
+import SearchComponent from 'app/shared/util/search-component';
 
 export const SaleOrder = (props: RouteComponentProps<{ url: string }>) => {
+  const searchFieldTemplate = [
+    {
+      name: 'orderId',
+      label: 'orderId',
+      searchKey: 'orderId',
+      placeholder: 'orderId',
+      searchType: 'equals', // Customize search type as needed
+      className: 'float-start me-2 form-control-sm',
+    },
+    {
+      name: 'ownerEmployeeId',
+      label: 'ownerEmployeeId',
+      searchKey: 'ownerEmployeeId',
+      searchType: 'contains',
+      placeholder: 'ownerEmployeeId',
+      className: 'float-start me-2 form-control-sm',
+    },
+    {
+      name: 'contractId',
+      label: 'contractId',
+      searchKey: 'contractId',
+      searchType: 'contains',
+      placeholder: 'contractId',
+      className: 'float-start me-2 form-control-sm',
+    },
+    {
+      name: 'orderStageName',
+      label: 'orderStageName',
+      searchKey: 'orderStageName',
+      searchType: 'contains',
+      placeholder: 'orderStageName',
+      className: 'float-start me-2 form-control-sm',
+    },
+  ];
+
   const dispatch = useAppDispatch();
 
   const [paginationState, setPaginationState] = useState(
@@ -28,18 +64,23 @@ export const SaleOrder = (props: RouteComponentProps<{ url: string }>) => {
   const loading = useAppSelector(state => state.saleOrder.loading);
   const totalItems = useAppSelector(state => state.saleOrder.totalItems);
 
-  const getAllEntities = () => {
+  const getAllEntities = (searchCriterials: any) => {
     dispatch(
       getEntities({
         page: paginationState.activePage - 1,
         size: paginationState.itemsPerPage,
         sort: `${paginationState.sort},${paginationState.order}`,
+        searchCriterials,
       })
     );
+    const endURL = `?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`;
+    if (props.location.search !== endURL) {
+      props.history.push(`${props.location.pathname}${endURL}`);
+    }
   };
 
   const sortEntities = () => {
-    getAllEntities();
+    getAllEntities(null);
     const endURL = `?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`;
     if (props.location.search !== endURL) {
       props.history.push(`${props.location.pathname}${endURL}`);
@@ -110,13 +151,21 @@ export const SaleOrder = (props: RouteComponentProps<{ url: string }>) => {
   };
   // end handle excel
 
+  //handle search
+  const handleSearch = data => {
+    getAllEntities(data);
+  };
+  // end handle search
+
   const { match } = props;
 
   return (
     <div>
       <h2 id="sale-order-heading" data-cy="SaleOrderHeading">
         Sale Orders
-        <div className="d-flex justify-content-end">
+        <div className="d-flex justify-content-end" style={{ height: '50px' }}>
+          <SearchComponent fields={searchFieldTemplate} onSubmit={handleSearch} />
+
           <Button className="me-2" color="info" onClick={() => downloadUploadSaleOrderTemplate()} disabled={loading}>
             <i className="pi pi-download" style={{ fontSize: '1rem' }}></i>
             <span className="ms-1">Download Template</span>
@@ -127,9 +176,6 @@ export const SaleOrder = (props: RouteComponentProps<{ url: string }>) => {
             <span className="ms-1">Import Data</span>
           </Button>
 
-          <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
-            <FontAwesomeIcon icon="sync" spin={loading} /> Refresh List
-          </Button>
           <Link to="/sale-order/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
             <FontAwesomeIcon icon="plus" />
             &nbsp; Create new Sale Order
