@@ -39,24 +39,31 @@ const SearchComponent = ({
   };
 
   return (
-    <div className="d-flex justify-content-end align-items-center">
-      <ValidatedForm onSubmit={handleSubmit}>
+    <div className="d-flex justify-content-end align-items-center" style={{ height: '80%' }}>
+      <ValidatedForm onSubmit={handleSubmit} className="d-flex align-items-center">
         {fields.map(field => (
           <ValidatedField
             key={field.name} // Ensure unique keys for accessibility
-            // label={field.label}
+            label={field.label}
             id={field.name}
             name={field.name}
             type={field.type || 'text'} // Default to text input
             className={field.className}
             value={searchValues[field.name] || ''} // Set initial value
+            placeholder={field.placeholder}
             onChange={handleInputChange}
-            style={{ height: '60px' }}
+            style={{ height: '38px', fontSize: '1rem', padding: '0.25rem 0.5rem', marginBottom: '1rem' }}
           />
         ))}
-        <Button className="me-2" type="submit" color="info" disabled={isLoading}>
+        <Button
+          style={{ fontSize: '0.85rem', padding: '0.25rem 0.5rem', height: '36px', marginBottom: '6px' }}
+          className="me-2 btn-sm"
+          type="submit"
+          color="info"
+          disabled={isLoading}
+        >
           <i className="pi pi-search" style={{ fontSize: '1rem' }}></i>
-          <span className="ms-1"> Tìm kiếm</span>
+          <span className="ms-1">Search</span>
         </Button>
       </ValidatedForm>
     </div>

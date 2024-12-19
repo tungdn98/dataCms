@@ -23,18 +23,28 @@ export const Company = (props: RouteComponentProps<{ url: string }>) => {
   // Example field configuration:
   const searchFieldTemplate = [
     {
-      name: 'nameCamp',
-      label: 'nameCamp',
-      searchKey: 'nameCamp',
-      searchType: 'contains', // Customize search type as needed
-      className: 'float-start me-2',
+      name: 'companyCode',
+      label: 'companyCode',
+      searchKey: 'companyCode',
+      placeholder: 'company Code',
+      searchType: 'equals', // Customize search type as needed
+      className: 'float-start me-2 form-control-sm',
     },
     {
-      name: 'codeCamp',
-      label: 'codeCamp',
-      searchKey: 'codeCamp',
-      searchType: 'equals',
-      className: 'float-start me-2',
+      name: 'companyName',
+      label: 'companyName',
+      searchKey: 'companyName',
+      searchType: 'contains',
+      placeholder: 'company Name',
+      className: 'float-start me-2 form-control-sm',
+    },
+    {
+      name: 'phoneNumber',
+      label: 'phoneNumber',
+      searchKey: 'phoneNumber',
+      searchType: 'contains',
+      placeholder: 'phone',
+      className: 'float-start me-2 form-control-sm',
     },
   ];
 
@@ -46,18 +56,23 @@ export const Company = (props: RouteComponentProps<{ url: string }>) => {
   const loading = useAppSelector(state => state.company.loading);
   const totalItems = useAppSelector(state => state.company.totalItems);
 
-  const getAllEntities = () => {
+  const getAllEntities = (searchCriterials: any) => {
     dispatch(
       getEntities({
         page: paginationState.activePage - 1,
         size: paginationState.itemsPerPage,
         sort: `${paginationState.sort},${paginationState.order}`,
+        searchCriterials,
       })
     );
+    const endURL = `?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`;
+    if (props.location.search !== endURL) {
+      props.history.push(`${props.location.pathname}${endURL}`);
+    }
   };
 
   const sortEntities = () => {
-    getAllEntities();
+    getAllEntities(null);
     const endURL = `?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`;
     if (props.location.search !== endURL) {
       props.history.push(`${props.location.pathname}${endURL}`);
@@ -128,7 +143,7 @@ export const Company = (props: RouteComponentProps<{ url: string }>) => {
 
   //handle search
   const handleSearch = data => {
-    console.log(data);
+    getAllEntities(data);
   };
   // end handle search
 
@@ -139,10 +154,7 @@ export const Company = (props: RouteComponentProps<{ url: string }>) => {
       <h2 id="company-heading" data-cy="CompanyHeading">
         Companies
         <div className="d-flex justify-content-end" style={{ height: '50px' }}>
-          {/*<SearchComponent*/}
-          {/*  fields={searchFieldTemplate}*/}
-          {/*  onSubmit={handleSearch}*/}
-          {/*/>*/}
+          <SearchComponent fields={searchFieldTemplate} onSubmit={handleSearch} />
 
           <Button className="me-2" color="info" onClick={() => downloadUploadCompanyTemplate()} disabled={loading}>
             <i className="pi pi-download" style={{ fontSize: '1rem' }}></i>
