@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -18,7 +16,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "employee")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Employee extends AbstractAuditingEntity implements Serializable {
+public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -70,27 +68,23 @@ public class Employee extends AbstractAuditingEntity implements Serializable {
     @Column(name = "employee_full_name")
     private String employeeFullName;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @Column(name = "created_date")
+    private Instant createdDate;
+
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "last_modified_date")
+    private Instant lastModifiedDate;
+
+    @Column(name = "last_modified_by")
+    private String lastModifiedBy;
+
+    @ManyToOne
     @JsonIgnoreProperties(value = { "employees", "roles" }, allowSetters = true)
     private EmpGroup empGroup;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-        name = "employee_role",
-        joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
-    )
-    private Set<Roles> roles = new HashSet<>();
-
     // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    public Set<Roles> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Roles> roles) {
-        this.roles = roles;
-    }
 
     public Long getId() {
         return this.id;
@@ -274,6 +268,58 @@ public class Employee extends AbstractAuditingEntity implements Serializable {
         this.employeeFullName = employeeFullName;
     }
 
+    public Instant getCreatedDate() {
+        return this.createdDate;
+    }
+
+    public Employee createdDate(Instant createdDate) {
+        this.setCreatedDate(createdDate);
+        return this;
+    }
+
+    public void setCreatedDate(Instant createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getCreatedBy() {
+        return this.createdBy;
+    }
+
+    public Employee createdBy(String createdBy) {
+        this.setCreatedBy(createdBy);
+        return this;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Instant getLastModifiedDate() {
+        return this.lastModifiedDate;
+    }
+
+    public Employee lastModifiedDate(Instant lastModifiedDate) {
+        this.setLastModifiedDate(lastModifiedDate);
+        return this;
+    }
+
+    public void setLastModifiedDate(Instant lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public String getLastModifiedBy() {
+        return this.lastModifiedBy;
+    }
+
+    public Employee lastModifiedBy(String lastModifiedBy) {
+        this.setLastModifiedBy(lastModifiedBy);
+        return this;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
+    }
+
     public EmpGroup getEmpGroup() {
         return this.empGroup;
     }
@@ -288,46 +334,6 @@ public class Employee extends AbstractAuditingEntity implements Serializable {
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
-
-    @Override
-    public String getCreatedBy() {
-        return super.getCreatedBy();
-    }
-
-    @Override
-    public void setCreatedBy(String createdBy) {
-        super.setCreatedBy(createdBy);
-    }
-
-    @Override
-    public Instant getCreatedDate() {
-        return super.getCreatedDate();
-    }
-
-    @Override
-    public void setCreatedDate(Instant createdDate) {
-        super.setCreatedDate(createdDate);
-    }
-
-    @Override
-    public String getLastModifiedBy() {
-        return super.getLastModifiedBy();
-    }
-
-    @Override
-    public void setLastModifiedBy(String lastModifiedBy) {
-        super.setLastModifiedBy(lastModifiedBy);
-    }
-
-    @Override
-    public Instant getLastModifiedDate() {
-        return super.getLastModifiedDate();
-    }
-
-    @Override
-    public void setLastModifiedDate(Instant lastModifiedDate) {
-        super.setLastModifiedDate(lastModifiedDate);
-    }
 
     @Override
     public boolean equals(Object o) {

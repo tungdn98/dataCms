@@ -191,18 +191,4 @@ public class UnitResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
     }
-    @PostMapping("/unit/batch")
-    public ResponseEntity<Integer> saveBatchSaleContract(@RequestBody List<Unit> units) {
-        log.debug("REST request to save a list of units : {}", units);
-        for (Unit unit : units) {
-            if (unit.getId() != null) {
-                throw new BadRequestAlertException("A new unit cannot already have an ID", ENTITY_NAME, "idexists");
-            }
-        }
-        Integer savedCount = unitRepository.saveAll(units).size();
-        return ResponseEntity
-            .ok()
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, savedCount.toString()))
-            .body(savedCount);
-    }
 }

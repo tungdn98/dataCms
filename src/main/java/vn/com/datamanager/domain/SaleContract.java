@@ -2,7 +2,6 @@ package vn.com.datamanager.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.time.LocalDate;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
@@ -14,7 +13,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "sale_contract")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class SaleContract extends AbstractAuditingEntity implements Serializable {
+public class SaleContract implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -408,46 +407,6 @@ public class SaleContract extends AbstractAuditingEntity implements Serializable
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
-
-    @Override
-    public String getCreatedBy() {
-        return super.getCreatedBy();
-    }
-
-    @Override
-    public void setCreatedBy(String createdBy) {
-        super.setCreatedBy(createdBy);
-    }
-
-    @Override
-    public Instant getCreatedDate() {
-        return super.getCreatedDate();
-    }
-
-    @Override
-    public void setCreatedDate(Instant createdDate) {
-        super.setCreatedDate(createdDate);
-    }
-
-    @Override
-    public String getLastModifiedBy() {
-        return super.getLastModifiedBy();
-    }
-
-    @Override
-    public void setLastModifiedBy(String lastModifiedBy) {
-        super.setLastModifiedBy(lastModifiedBy);
-    }
-
-    @Override
-    public Instant getLastModifiedDate() {
-        return super.getLastModifiedDate();
-    }
-
-    @Override
-    public void setLastModifiedDate(Instant lastModifiedDate) {
-        super.setLastModifiedDate(lastModifiedDate);
-    }
 
     @Override
     public boolean equals(Object o) {

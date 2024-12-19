@@ -18,14 +18,11 @@ import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 import vn.com.datamanager.domain.OpportunityStageReason;
-import vn.com.datamanager.domain.Product;
 import vn.com.datamanager.repository.OpportunityStageReasonRepository;
 import vn.com.datamanager.service.OpportunityStageReasonQueryService;
 import vn.com.datamanager.service.OpportunityStageReasonService;
 import vn.com.datamanager.service.criteria.OpportunityStageReasonCriteria;
 import vn.com.datamanager.web.rest.errors.BadRequestAlertException;
-
-import static vn.com.datamanager.repository.OpportunityStageReasonRepository.*;
 
 /**
  * REST controller for managing {@link vn.com.datamanager.domain.OpportunityStageReason}.
@@ -205,20 +202,5 @@ public class OpportunityStageReasonResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
-    }
-
-    @PostMapping("/opportunity-stage-reason/batch")
-    public ResponseEntity<Integer> saveBatchSaleContract(@RequestBody List<OpportunityStageReason> oppStageReasonResources) {
-        log.debug("REST request to save a list of products : {}", oppStageReasonResources);
-        for (OpportunityStageReason opportunityStageReason : oppStageReasonResources) {
-            if (opportunityStageReason.getId() != null) {
-                throw new BadRequestAlertException("A new product cannot already have an ID", ENTITY_NAME, "idexists");
-            }
-        }
-        Integer savedCount = opportunityStageReasonRepository.saveAll(oppStageReasonResources).size();
-        return ResponseEntity
-            .ok()
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, savedCount.toString()))
-            .body(savedCount);
     }
 }

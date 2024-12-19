@@ -123,7 +123,7 @@ export const Config = (props: RouteComponentProps<{ url: string }>) => {
                 <th className="hand" onClick={sort('lastModifiedBy')}>
                   Last Modified By <FontAwesomeIcon icon="sort" />
                 </th>
-                <th>Function</th>
+                <th />
               </tr>
             </thead>
             <tbody>
