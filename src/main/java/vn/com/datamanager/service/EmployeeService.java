@@ -177,7 +177,7 @@ public class EmployeeService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<EmployeeDTO> getEmployeeWithRoles() {
+    public Optional<EmployeeDTO> getEmployeeWithRoles() { // update get employee
         String username = SecurityUtils.getLoggedInUsername();
         log.info("SecurityUtils.getLoggedInUsername().get() = " + username);
 
