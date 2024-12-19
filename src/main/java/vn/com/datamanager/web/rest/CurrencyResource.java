@@ -18,7 +18,6 @@ import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 import vn.com.datamanager.domain.Currency;
-import vn.com.datamanager.domain.Product;
 import vn.com.datamanager.repository.CurrencyRepository;
 import vn.com.datamanager.service.CurrencyQueryService;
 import vn.com.datamanager.service.CurrencyService;
@@ -202,19 +201,5 @@ public class CurrencyResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
-    }
-    @PostMapping("/currencies/batch")
-    public ResponseEntity<Integer> saveBatchSaleContract(@RequestBody List<Currency> currencies) {
-        log.debug("REST request to save a list of currency : {}", currencies);
-        for (Currency currency : currencies) {
-            if (currency.getId() != null) {
-                throw new BadRequestAlertException("A new currency cannot already have an ID", ENTITY_NAME, "idexists");
-            }
-        }
-        Integer savedCount = currencyRepository.saveAll(currencies).size();
-        return ResponseEntity
-            .ok()
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, savedCount.toString()))
-            .body(savedCount);
     }
 }

@@ -1,20 +1,14 @@
 package vn.com.datamanager.service;
 
-import java.util.*;
-import java.util.stream.Stream;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vn.com.datamanager.domain.Employee;
-import vn.com.datamanager.domain.Roles;
 import vn.com.datamanager.repository.EmployeeRepository;
-import vn.com.datamanager.repository.RolesRepository;
-import vn.com.datamanager.security.SecurityUtils;
-import vn.com.datamanager.service.dto.EmployeeDTO;
 
 /**
  * Service Implementation for managing {@link Employee}.
@@ -26,9 +20,6 @@ public class EmployeeService {
     private final Logger log = LoggerFactory.getLogger(EmployeeService.class);
 
     private final EmployeeRepository employeeRepository;
-
-    @Autowired
-    RolesRepository roleRepository;
 
     public EmployeeService(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;

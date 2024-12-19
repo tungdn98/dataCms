@@ -19,17 +19,6 @@ const apiUrl = 'api/activities';
 
 // Actions
 
-// export const searchEntitiesApplication = createAsyncThunk(
-//   'apiIn/fetch_entity_list',
-//   async ({ page, size, sort, searchCriterials }: IQueryParams) => {
-//     let requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}&` : '?'}`;
-//     Object.keys(searchCriterials).map(function (key) {
-//       requestUrl += `${key}=${searchCriterials[key]}&`;
-//     });
-//     return axios.get<IApplication[]>(requestUrl);
-//   }
-// );
-
 export const getEntities = createAsyncThunk('activity/fetch_entity_list', async ({ page, size, sort }: IQueryParams) => {
   const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}&` : '?'}cacheBuster=${new Date().getTime()}`;
   return axios.get<IActivity[]>(requestUrl);

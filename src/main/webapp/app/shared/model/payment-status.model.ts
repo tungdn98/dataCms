@@ -4,10 +4,4 @@ export interface IPaymentStatus {
   paymentStatusName?: string | null;
 }
 
-export class PaymentStatusImport {
-  STT: number | null = null;
-  paymentStatusId: string | null = null;
-  paymentStatusName: string | null = null;
-}
-
 export const defaultValue: Readonly<IPaymentStatus> = {};

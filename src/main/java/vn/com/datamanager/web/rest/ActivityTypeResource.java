@@ -18,7 +18,6 @@ import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 import vn.com.datamanager.domain.ActivityType;
-import vn.com.datamanager.domain.Product;
 import vn.com.datamanager.repository.ActivityTypeRepository;
 import vn.com.datamanager.service.ActivityTypeQueryService;
 import vn.com.datamanager.service.ActivityTypeService;
@@ -202,20 +201,5 @@ public class ActivityTypeResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
-    }
-
-    @PostMapping("/activity-types/batch")
-    public ResponseEntity<Integer> saveBatchSaleContract(@RequestBody List<ActivityType> activityTypes) {
-        log.debug("REST request to save a list of products : {}", activityTypes);
-        for (ActivityType product : activityTypes) {
-            if (product.getId() != null) {
-                throw new BadRequestAlertException("A new product cannot already have an ID", ENTITY_NAME, "idexists");
-            }
-        }
-        Integer savedCount = activityTypeRepository.saveAll(activityTypes).size();
-        return ResponseEntity
-            .ok()
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, savedCount.toString()))
-            .body(savedCount);
     }
 }

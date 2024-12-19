@@ -1,6 +1,5 @@
 package vn.com.datamanager.repository;
 
-import java.util.Optional;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 import vn.com.datamanager.domain.Roles;
@@ -10,6 +9,4 @@ import vn.com.datamanager.domain.Roles;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface RolesRepository extends JpaRepository<Roles, Long>, JpaSpecificationExecutor<Roles> {
-    Optional<Roles> findOneByResourceUrl(String resourceUrl);
-}
+public interface RolesRepository extends JpaRepository<Roles, Long>, JpaSpecificationExecutor<Roles> {}
