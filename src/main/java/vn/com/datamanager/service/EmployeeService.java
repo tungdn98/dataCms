@@ -149,4 +149,93 @@ public class EmployeeService {
         log.debug("Request to delete Employee : {}", id);
         employeeRepository.deleteById(id);
     }
+
+    // method viết thêm
+    /**
+     * Gets a list of all the authorities.
+     *
+     * @return a list of all the authorities.
+     */
+    public List<String> getAllRoles() {
+        List<Roles> roles = roleRepository.findAll();
+        List<String> allRoles = new ArrayList<String>();
+        for (Roles role : roles) {
+            allRoles.add(role.getResourceUrl());
+
+            log.debug("Employee Service Get Roles = " + role.getResourceUrl());
+        }
+        return allRoles;
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<EmployeeDTO> getEmployeeWithRoles() { // update get employee
+        String username = SecurityUtils.getLoggedInUsername();
+        log.info("SecurityUtils.getLoggedInUsername().get() = " + username);
+
+        Optional<Employee> isEmployee = employeeRepository.findOneByUsernameIgnoreCase(username);
+
+        EmployeeDTO dto = null;
+
+        if (isEmployee.isPresent()) {
+            Employee employee = isEmployee.get();
+
+            dto = new EmployeeDTO();
+            dto.setId(employee.getId());
+            dto.setUsername(employee.getUsername());
+            dto.setFullname(employee.getEmployeeName());
+
+            Set<Roles> setRoles = employee.getEmpGroup().getRoles();
+            // cách cũ ko dùng
+            // Stream<String> currentRoles = SecurityUtils.getCurrentUserRoles();
+
+            // lấy getResourceUrl đưa vào trong stream
+            Stream<String> currentRoles = setRoles.stream().map(Roles::getResourceUrl);
+
+            Stream<String> ortherRoles = employee.getRoles().stream().map(Roles::getResourceUrl);
+
+            Set<String> roles = new HashSet<String>();
+
+            currentRoles.forEach(role -> {
+                roles.add(role);
+            });
+
+            ortherRoles.forEach(role -> {
+                roles.add(role);
+            });
+
+            dto.setAuthorities(roles);
+        }
+
+        return Optional.ofNullable(dto);
+    }
+
+    /**
+     * Tìm nhân sự theo mã
+     *
+     * @author tungdn <tungdn@pvcombank.com.vn>
+     * @since 05/02/2020 05:40 PM
+     * @param employeeCode
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public Optional<Employee> findOneByEmployeeCode(String employeeCode) {
+        log.debug("REQUEST TO GET ONE EMPLOYEE BY CODE : {}", employeeCode);
+
+        return employeeRepository.findOneByEmployeeCode(employeeCode);
+    }
+
+    /**
+     * Tìm nhân sự theo tài khoản
+     *
+     * @author tungdn <tungdn@pvcombank.com.vn>
+     * @since 05/12/2024 05:40 PM
+     * @param username
+     * @return
+     */
+    @Transactional(readOnly = true)
+    public Optional<Employee> findOneByUsername(String username) {
+        log.debug("REQUEST TO GET ONE EMPLOYEE BY CODE : {}", username);
+
+        return employeeRepository.findOneByUsernameIgnoreCase(username);
+    }
 }
