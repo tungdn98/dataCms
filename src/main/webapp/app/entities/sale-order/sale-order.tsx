@@ -163,6 +163,7 @@ export const SaleOrder = (props: RouteComponentProps<{ url: string }>) => {
     <div>
       <h2 id="sale-order-heading" data-cy="SaleOrderHeading">
         Sale Orders
+
         <div className="d-flex justify-content-end" style={{ height: '50px' }}>
           <SearchComponent fields={searchFieldTemplate} onSubmit={handleSearch} />
 
@@ -176,6 +177,7 @@ export const SaleOrder = (props: RouteComponentProps<{ url: string }>) => {
             <span className="ms-1">Import Data</span>
           </Button>
 
+        <div className="d-flex justify-content-end">
           <Link to="/sale-order/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
             <FontAwesomeIcon icon="plus" />
             &nbsp; Create new Sale Order
@@ -211,19 +213,19 @@ export const SaleOrder = (props: RouteComponentProps<{ url: string }>) => {
                 <th className="hand" onClick={sort('orderStageName')}>
                   Order Stage Name <FontAwesomeIcon icon="sort" />
                 </th>
-                {/*<th className="hand" onClick={sort('createdDate')}>*/}
-                {/*  Created Date <FontAwesomeIcon icon="sort" />*/}
-                {/*</th>*/}
-                {/*<th className="hand" onClick={sort('createdBy')}>*/}
-                {/*  Created By <FontAwesomeIcon icon="sort" />*/}
-                {/*</th>*/}
-                {/*<th className="hand" onClick={sort('lastModifiedDate')}>*/}
-                {/*  Last Modified Date <FontAwesomeIcon icon="sort" />*/}
-                {/*</th>*/}
-                {/*<th className="hand" onClick={sort('lastModifiedBy')}>*/}
-                {/*  Last Modified By <FontAwesomeIcon icon="sort" />*/}
-                {/*</th>*/}
-                <th>Action</th>
+                <th className="hand" onClick={sort('createdDate')}>
+                  Created Date <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={sort('createdBy')}>
+                  Created By <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={sort('lastModifiedDate')}>
+                  Last Modified Date <FontAwesomeIcon icon="sort" />
+                </th>
+                <th className="hand" onClick={sort('lastModifiedBy')}>
+                  Last Modified By <FontAwesomeIcon icon="sort" />
+                </th>
+                <th />
               </tr>
             </thead>
             <tbody>
@@ -241,17 +243,17 @@ export const SaleOrder = (props: RouteComponentProps<{ url: string }>) => {
                   <td>{saleOrder.totalValue}</td>
                   <td>{saleOrder.orderStageId}</td>
                   <td>{saleOrder.orderStageName}</td>
-                  {/*<td>*/}
-                  {/*  {saleOrder.createdDate ? <TextFormat type="date" value={saleOrder.createdDate} format={APP_DATE_FORMAT} /> : null}*/}
-                  {/*</td>*/}
-                  {/*<td>{saleOrder.createdBy}</td>*/}
-                  {/*<td>*/}
-                  {/*  {saleOrder.lastModifiedDate ? (*/}
-                  {/*    <TextFormat type="date" value={saleOrder.lastModifiedDate} format={APP_DATE_FORMAT} />*/}
-                  {/*  ) : null}*/}
-                  {/*</td>*/}
-                  {/*<td>{saleOrder.lastModifiedBy}</td>*/}
-                  <td className="text-center">
+                  <td>
+                    {saleOrder.createdDate ? <TextFormat type="date" value={saleOrder.createdDate} format={APP_DATE_FORMAT} /> : null}
+                  </td>
+                  <td>{saleOrder.createdBy}</td>
+                  <td>
+                    {saleOrder.lastModifiedDate ? (
+                      <TextFormat type="date" value={saleOrder.lastModifiedDate} format={APP_DATE_FORMAT} />
+                    ) : null}
+                  </td>
+                  <td>{saleOrder.lastModifiedBy}</td>
+                  <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/sale-order/${saleOrder.id}`} color="info" size="sm" data-cy="entityDetailsButton">
                         <FontAwesomeIcon icon="eye" /> <span className="d-none d-md-inline">View</span>
@@ -302,16 +304,6 @@ export const SaleOrder = (props: RouteComponentProps<{ url: string }>) => {
       ) : (
         ''
       )}
-
-      <Dialog
-        header="Import dữ liệu sale order"
-        visible={visibleImportDialog}
-        style={{ width: '70vw' }}
-        onHide={() => setVisibleImportDialog(false)}
-        breakpoints={{ '960px': '75vw', '641px': '100vw' }}
-      >
-        <SaleOrderImport />
-      </Dialog>
     </div>
   );
 };

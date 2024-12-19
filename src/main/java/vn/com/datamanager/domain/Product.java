@@ -1,7 +1,6 @@
 package vn.com.datamanager.domain;
 
 import java.io.Serializable;
-import java.time.Instant;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -12,7 +11,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "product")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Product extends AbstractAuditingEntity implements Serializable {
+public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -44,46 +43,6 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     private String productFamilyName;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-
-    @Override
-    public String getCreatedBy() {
-        return super.getCreatedBy();
-    }
-
-    @Override
-    public void setCreatedBy(String createdBy) {
-        super.setCreatedBy(createdBy);
-    }
-
-    @Override
-    public Instant getCreatedDate() {
-        return super.getCreatedDate();
-    }
-
-    @Override
-    public void setCreatedDate(Instant createdDate) {
-        super.setCreatedDate(createdDate);
-    }
-
-    @Override
-    public String getLastModifiedBy() {
-        return super.getLastModifiedBy();
-    }
-
-    @Override
-    public void setLastModifiedBy(String lastModifiedBy) {
-        super.setLastModifiedBy(lastModifiedBy);
-    }
-
-    @Override
-    public Instant getLastModifiedDate() {
-        return super.getLastModifiedDate();
-    }
-
-    @Override
-    public void setLastModifiedDate(Instant lastModifiedDate) {
-        super.setLastModifiedDate(lastModifiedDate);
-    }
 
     public Long getId() {
         return this.id;

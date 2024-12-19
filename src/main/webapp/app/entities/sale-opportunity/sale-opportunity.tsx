@@ -154,6 +154,7 @@ export const SaleOpportunity = (props: RouteComponentProps<{ url: string }>) => 
     <div>
       <h2 id="sale-opportunity-heading" data-cy="SaleOpportunityHeading">
         Sale Opportunities
+
         <div className="d-flex justify-content-end" style={{ height: '50px' }}>
           <SearchComponent fields={searchFieldTemplate} onSubmit={handleSearch} />
           <Button className="me-2" color="info" onClick={() => downloadUploadTemplate()} disabled={loading}>
@@ -164,7 +165,7 @@ export const SaleOpportunity = (props: RouteComponentProps<{ url: string }>) => 
           <Button className="me-2" color="info" onClick={() => setVisibleImportDialog(true)} disabled={loading}>
             <i className="pi pi-file-import" style={{ fontSize: '1rem' }}></i>
             <span className="ms-1">Import Data</span>
-          </Button>
+        <div className="d-flex justify-content-end">
           <Link to="/sale-opportunity/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
             <FontAwesomeIcon icon="plus" />
             &nbsp; Create new Sale Opportunity
@@ -315,16 +316,6 @@ export const SaleOpportunity = (props: RouteComponentProps<{ url: string }>) => 
       ) : (
         ''
       )}
-
-      <Dialog
-        header="Import dữ liệu sale oppo"
-        visible={visibleImportDialog}
-        style={{ width: '70vw' }}
-        onHide={() => setVisibleImportDialog(false)}
-        breakpoints={{ '960px': '75vw', '641px': '100vw' }}
-      >
-        <SaleOppoImport />
-      </Dialog>
     </div>
   );
 };

@@ -15,7 +15,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "sale_order")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class SaleOrder extends AbstractAuditingEntity implements Serializable {
+public class SaleOrder implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -45,6 +45,18 @@ public class SaleOrder extends AbstractAuditingEntity implements Serializable {
 
     @Column(name = "order_stage_name")
     private String orderStageName;
+
+    @Column(name = "created_date")
+    private Instant createdDate;
+
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "last_modified_date")
+    private Instant lastModifiedDate;
+
+    @Column(name = "last_modified_by")
+    private String lastModifiedBy;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -152,9 +164,34 @@ public class SaleOrder extends AbstractAuditingEntity implements Serializable {
         this.orderStageName = orderStageName;
     }
 
+    public Instant getCreatedDate() {
+        return this.createdDate;
+    }
+
+    public SaleOrder createdDate(Instant createdDate) {
+        this.setCreatedDate(createdDate);
+        return this;
+    }
+
+    public void setCreatedDate(Instant createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getCreatedBy() {
+        return this.createdBy;
+    }
+
     public SaleOrder createdBy(String createdBy) {
         this.setCreatedBy(createdBy);
         return this;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Instant getLastModifiedDate() {
+        return this.lastModifiedDate;
     }
 
     public SaleOrder lastModifiedDate(Instant lastModifiedDate) {
@@ -162,52 +199,24 @@ public class SaleOrder extends AbstractAuditingEntity implements Serializable {
         return this;
     }
 
+    public void setLastModifiedDate(Instant lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public String getLastModifiedBy() {
+        return this.lastModifiedBy;
+    }
+
     public SaleOrder lastModifiedBy(String lastModifiedBy) {
         this.setLastModifiedBy(lastModifiedBy);
         return this;
     }
 
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
-
-    @Override
-    public String getCreatedBy() {
-        return super.getCreatedBy();
-    }
-
-    @Override
-    public void setCreatedBy(String createdBy) {
-        super.setCreatedBy(createdBy);
-    }
-
-    @Override
-    public Instant getCreatedDate() {
-        return super.getCreatedDate();
-    }
-
-    @Override
-    public void setCreatedDate(Instant createdDate) {
-        super.setCreatedDate(createdDate);
-    }
-
-    @Override
-    public String getLastModifiedBy() {
-        return super.getLastModifiedBy();
-    }
-
-    @Override
     public void setLastModifiedBy(String lastModifiedBy) {
-        super.setLastModifiedBy(lastModifiedBy);
+        this.lastModifiedBy = lastModifiedBy;
     }
 
-    @Override
-    public Instant getLastModifiedDate() {
-        return super.getLastModifiedDate();
-    }
-
-    @Override
-    public void setLastModifiedDate(Instant lastModifiedDate) {
-        super.setLastModifiedDate(lastModifiedDate);
-    }
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {

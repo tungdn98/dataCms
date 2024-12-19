@@ -18,7 +18,6 @@ import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 import vn.com.datamanager.domain.Customer;
-import vn.com.datamanager.domain.EmployeeLead;
 import vn.com.datamanager.repository.CustomerRepository;
 import vn.com.datamanager.service.CustomerQueryService;
 import vn.com.datamanager.service.CustomerService;
@@ -202,20 +201,5 @@ public class CustomerResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
-    }
-
-    @PostMapping("/customers/batch")
-    public ResponseEntity<Integer> saveBatchCustomer(@RequestBody List<Customer> customers) {
-        log.debug("REST request to save a list of customers : {}", customers);
-        for (Customer customer : customers) {
-            if (customer.getId() != null) {
-                throw new BadRequestAlertException("A new customer cannot already have an ID", ENTITY_NAME, "idexists");
-            }
-        }
-        Integer savedCount = customerRepository.saveAll(customers).size();
-        return ResponseEntity
-            .ok()
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, savedCount.toString()))
-            .body(savedCount);
     }
 }

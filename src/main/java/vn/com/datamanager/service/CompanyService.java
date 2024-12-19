@@ -1,6 +1,5 @@
 package vn.com.datamanager.service;
 
-import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -125,12 +124,5 @@ public class CompanyService {
     public void delete(Long id) {
         log.debug("Request to delete Company : {}", id);
         companyRepository.deleteById(id);
-    }
-
-    @Transactional
-    public Integer saveAll(List<Company> companies) {
-        log.debug("Request to save companies : {}", companies);
-        List<Company> savedCompanies = companyRepository.saveAll(companies);
-        return savedCompanies.size();
     }
 }
