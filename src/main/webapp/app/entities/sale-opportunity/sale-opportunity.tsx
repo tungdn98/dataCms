@@ -16,6 +16,7 @@ import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { Dialog } from 'primereact/dialog';
 import SaleOppoImport from 'app/entities/sale-opportunity/sale-oppo-import';
+import SearchComponent from 'app/shared/util/search-component';
 
 export const SaleOpportunity = (props: RouteComponentProps<{ url: string }>) => {
   const dispatch = useAppDispatch();
@@ -27,24 +28,6 @@ export const SaleOpportunity = (props: RouteComponentProps<{ url: string }>) => 
   const saleOpportunityList = useAppSelector(state => state.saleOpportunity.entities);
   const loading = useAppSelector(state => state.saleOpportunity.loading);
   const totalItems = useAppSelector(state => state.saleOpportunity.totalItems);
-
-  const getAllEntities = () => {
-    dispatch(
-      getEntities({
-        page: paginationState.activePage - 1,
-        size: paginationState.itemsPerPage,
-        sort: `${paginationState.sort},${paginationState.order}`,
-      })
-    );
-  };
-
-  const sortEntities = () => {
-    getAllEntities();
-    const endURL = `?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`;
-    if (props.location.search !== endURL) {
-      props.history.push(`${props.location.pathname}${endURL}`);
-    }
-  };
 
   useEffect(() => {
     sortEntities();
@@ -118,13 +101,61 @@ export const SaleOpportunity = (props: RouteComponentProps<{ url: string }>) => 
   };
   // end handle excel
 
+  // start search
+  const searchFieldTemplate = [
+    {
+      name: 'opportunityCode',
+      label: 'opportunityCode',
+      searchKey: 'opportunityCode',
+      placeholder: 'opportunityCode',
+      searchType: 'equals', // Customize search type as needed
+      className: 'float-start me-2 form-control-sm',
+    },
+    {
+      name: 'opportunityName',
+      label: 'opportunityName',
+      searchKey: 'opportunityName',
+      searchType: 'contains',
+      placeholder: 'opportunityName',
+      className: 'float-start me-2 form-control-sm',
+    },
+  ];
+
+  const getAllEntities = (searchCriterials: any) => {
+    dispatch(
+      getEntities({
+        page: paginationState.activePage - 1,
+        size: paginationState.itemsPerPage,
+        sort: `${paginationState.sort},${paginationState.order}`,
+        searchCriterials,
+      })
+    );
+    const endURL = `?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`;
+    if (props.location.search !== endURL) {
+      props.history.push(`${props.location.pathname}${endURL}`);
+    }
+  };
+
+  const sortEntities = () => {
+    getAllEntities(null);
+    const endURL = `?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`;
+    if (props.location.search !== endURL) {
+      props.history.push(`${props.location.pathname}${endURL}`);
+    }
+  };
+  const handleSearch = data => {
+    getAllEntities(data);
+  };
+  // end start search
+
   const { match } = props;
 
   return (
     <div>
       <h2 id="sale-opportunity-heading" data-cy="SaleOpportunityHeading">
         Sale Opportunities
-        <div className="d-flex justify-content-end">
+        <div className="d-flex justify-content-end" style={{ height: '50px' }}>
+          <SearchComponent fields={searchFieldTemplate} onSubmit={handleSearch} />
           <Button className="me-2" color="info" onClick={() => downloadUploadTemplate()} disabled={loading}>
             <i className="pi pi-download" style={{ fontSize: '1rem' }}></i>
             <span className="ms-1">Download Template</span>
@@ -133,10 +164,6 @@ export const SaleOpportunity = (props: RouteComponentProps<{ url: string }>) => 
           <Button className="me-2" color="info" onClick={() => setVisibleImportDialog(true)} disabled={loading}>
             <i className="pi pi-file-import" style={{ fontSize: '1rem' }}></i>
             <span className="ms-1">Import Data</span>
-          </Button>
-
-          <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
-            <FontAwesomeIcon icon="sync" spin={loading} /> Refresh List
           </Button>
           <Link to="/sale-opportunity/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
             <FontAwesomeIcon icon="plus" />
