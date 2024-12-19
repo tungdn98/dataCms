@@ -3,9 +3,9 @@ import { createAsyncThunk, isFulfilled, isPending, isRejected } from '@reduxjs/t
 
 import { cleanEntity } from 'app/shared/util/entity-utils';
 import { IQueryParams, createEntitySlice, EntityState, serializeAxiosError } from 'app/shared/reducers/reducer.utils';
-import { ISaleOpportunity, defaultValue } from 'app/shared/model/sale-opportunity.model';
+import { IFinalcial, defaultValue } from 'app/shared/model/finalcial.model';
 
-const initialState: EntityState<ISaleOpportunity> = {
+const initialState: EntityState<IFinalcial> = {
   loading: false,
   errorMessage: null,
   entities: [],
@@ -15,36 +15,28 @@ const initialState: EntityState<ISaleOpportunity> = {
   updateSuccess: false,
 };
 
-const apiUrl = 'api/sale-opportunities';
+const apiUrl = 'api/finalcials';
 
 // Actions
 
-export const getEntities = createAsyncThunk(
-  'saleOpportunity/fetch_entity_list',
-  async ({ page, size, sort, searchCriterials = {} }: IQueryParams) => {
-    let requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}&` : '?'}`;
-    if (searchCriterials && typeof searchCriterials === 'object') {
-      Object.keys(searchCriterials).forEach(key => {
-        requestUrl += `${key}=${searchCriterials[key]}&`;
-      });
-    }
-    return axios.get<ISaleOpportunity[]>(requestUrl);
-  }
-);
+export const getEntities = createAsyncThunk('finalcial/fetch_entity_list', async ({ page, size, sort }: IQueryParams) => {
+  const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}&` : '?'}cacheBuster=${new Date().getTime()}`;
+  return axios.get<IFinalcial[]>(requestUrl);
+});
 
 export const getEntity = createAsyncThunk(
-  'saleOpportunity/fetch_entity',
+  'finalcial/fetch_entity',
   async (id: string | number) => {
     const requestUrl = `${apiUrl}/${id}`;
-    return axios.get<ISaleOpportunity>(requestUrl);
+    return axios.get<IFinalcial>(requestUrl);
   },
   { serializeError: serializeAxiosError }
 );
 
 export const createEntity = createAsyncThunk(
-  'saleOpportunity/create_entity',
-  async (entity: ISaleOpportunity, thunkAPI) => {
-    const result = await axios.post<ISaleOpportunity>(apiUrl, cleanEntity(entity));
+  'finalcial/create_entity',
+  async (entity: IFinalcial, thunkAPI) => {
+    const result = await axios.post<IFinalcial>(apiUrl, cleanEntity(entity));
     thunkAPI.dispatch(getEntities({}));
     return result;
   },
@@ -52,9 +44,9 @@ export const createEntity = createAsyncThunk(
 );
 
 export const updateEntity = createAsyncThunk(
-  'saleOpportunity/update_entity',
-  async (entity: ISaleOpportunity, thunkAPI) => {
-    const result = await axios.put<ISaleOpportunity>(`${apiUrl}/${entity.id}`, cleanEntity(entity));
+  'finalcial/update_entity',
+  async (entity: IFinalcial, thunkAPI) => {
+    const result = await axios.put<IFinalcial>(`${apiUrl}/${entity.id}`, cleanEntity(entity));
     thunkAPI.dispatch(getEntities({}));
     return result;
   },
@@ -62,9 +54,9 @@ export const updateEntity = createAsyncThunk(
 );
 
 export const partialUpdateEntity = createAsyncThunk(
-  'saleOpportunity/partial_update_entity',
-  async (entity: ISaleOpportunity, thunkAPI) => {
-    const result = await axios.patch<ISaleOpportunity>(`${apiUrl}/${entity.id}`, cleanEntity(entity));
+  'finalcial/partial_update_entity',
+  async (entity: IFinalcial, thunkAPI) => {
+    const result = await axios.patch<IFinalcial>(`${apiUrl}/${entity.id}`, cleanEntity(entity));
     thunkAPI.dispatch(getEntities({}));
     return result;
   },
@@ -72,10 +64,10 @@ export const partialUpdateEntity = createAsyncThunk(
 );
 
 export const deleteEntity = createAsyncThunk(
-  'saleOpportunity/delete_entity',
+  'finalcial/delete_entity',
   async (id: string | number, thunkAPI) => {
     const requestUrl = `${apiUrl}/${id}`;
-    const result = await axios.delete<ISaleOpportunity>(requestUrl);
+    const result = await axios.delete<IFinalcial>(requestUrl);
     thunkAPI.dispatch(getEntities({}));
     return result;
   },
@@ -84,8 +76,8 @@ export const deleteEntity = createAsyncThunk(
 
 // slice
 
-export const SaleOpportunitySlice = createEntitySlice({
-  name: 'saleOpportunity',
+export const FinalcialSlice = createEntitySlice({
+  name: 'finalcial',
   initialState,
   extraReducers(builder) {
     builder
@@ -127,7 +119,7 @@ export const SaleOpportunitySlice = createEntitySlice({
   },
 });
 
-export const { reset } = SaleOpportunitySlice.actions;
+export const { reset } = FinalcialSlice.actions;
 
 // Reducer
-export default SaleOpportunitySlice.reducer;
+export default FinalcialSlice.reducer;

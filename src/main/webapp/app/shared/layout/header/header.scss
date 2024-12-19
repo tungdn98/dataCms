@@ -120,3 +120,51 @@ Navbar styles
   top: 0px;
   z-index: 1031;
 }
+
+.jh-navbar .navbar-toggler {
+  display: block !important;
+}
+
+.jh-navbar {
+  background-color: #282c34; /* Màu nền navbar */
+  padding: 0.5em 1em;
+
+  .navbar-toggler {
+    border: none; /* Bỏ viền nút toggle */
+
+    &:focus {
+      box-shadow: none; /* Bỏ hiệu ứng focus */
+    }
+  }
+
+  // ... (Các style cũ) ...
+
+  .app-name {
+    /* Style cho tên ứng dụng */
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: auto; /* Căn giữa tên ứng dụng */
+  }
+}
+
+.offcanvas {
+  background-color: #343a40; /* Màu nền offcanvas */
+  width: 250px; /* Độ rộng offcanvas */
+
+  .offcanvas-header {
+    background-color: #787d97; /* Màu nền header offcanvas */
+    border-bottom: none; /* Bỏ viền dưới header */
+  }
+
+  .nav-link {
+    color: #e0e0e0; /* Màu chữ liên kết */
+    padding: 0.75em 1em; /* Padding cho liên kết */
+    border-bottom: 1px solid #454d55; /* Viền dưới liên kết */
+
+    &:hover {
+      background-color: #454d55; /* Màu nền khi hover */
+      color: #ffffff; /* Màu chữ khi hover */
+    }
+  }
+}

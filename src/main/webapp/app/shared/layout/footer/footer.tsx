@@ -8,7 +8,7 @@ const Footer = () => (
   <footer className="footer">
     <Row className="align-items-center">
       <Col md="4">
-        <span className="copyright">&copy; {new Date().getFullYear()} Tungdn Production</span>
+        <span className="copyright">&copy; {new Date().getFullYear()}</span>
       </Col>
       <Col md="4" className="text-center">
         <ul className="social-links list-inline">

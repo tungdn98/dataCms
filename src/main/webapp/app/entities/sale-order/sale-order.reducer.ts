@@ -19,10 +19,18 @@ const apiUrl = 'api/sale-orders';
 
 // Actions
 
-export const getEntities = createAsyncThunk('saleOrder/fetch_entity_list', async ({ page, size, sort }: IQueryParams) => {
-  const requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}&` : '?'}cacheBuster=${new Date().getTime()}`;
-  return axios.get<ISaleOrder[]>(requestUrl);
-});
+export const getEntities = createAsyncThunk(
+  'saleOrder/fetch_entity_list',
+  async ({ page, size, sort, searchCriterials = {} }: IQueryParams) => {
+    let requestUrl = `${apiUrl}${sort ? `?page=${page}&size=${size}&sort=${sort}&` : '?'}`;
+    if (searchCriterials && typeof searchCriterials === 'object') {
+      Object.keys(searchCriterials).forEach(key => {
+        requestUrl += `${key}=${searchCriterials[key]}&`;
+      });
+    }
+    return axios.get<ISaleOrder[]>(requestUrl);
+  }
+);
 
 export const getEntity = createAsyncThunk(
   'saleOrder/fetch_entity',

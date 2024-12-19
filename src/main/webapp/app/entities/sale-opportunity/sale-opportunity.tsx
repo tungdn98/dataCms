@@ -12,6 +12,12 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { ISaleOpportunity } from 'app/shared/model/sale-opportunity.model';
 import { getEntities } from './sale-opportunity.reducer';
 
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
+import { Dialog } from 'primereact/dialog';
+import SaleOppoImport from 'app/entities/sale-opportunity/sale-oppo-import';
+import SearchComponent from 'app/shared/util/search-component';
+
 export const SaleOpportunity = (props: RouteComponentProps<{ url: string }>) => {
   const dispatch = useAppDispatch();
 
@@ -22,24 +28,6 @@ export const SaleOpportunity = (props: RouteComponentProps<{ url: string }>) => 
   const saleOpportunityList = useAppSelector(state => state.saleOpportunity.entities);
   const loading = useAppSelector(state => state.saleOpportunity.loading);
   const totalItems = useAppSelector(state => state.saleOpportunity.totalItems);
-
-  const getAllEntities = () => {
-    dispatch(
-      getEntities({
-        page: paginationState.activePage - 1,
-        size: paginationState.itemsPerPage,
-        sort: `${paginationState.sort},${paginationState.order}`,
-      })
-    );
-  };
-
-  const sortEntities = () => {
-    getAllEntities();
-    const endURL = `?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`;
-    if (props.location.search !== endURL) {
-      props.history.push(`${props.location.pathname}${endURL}`);
-    }
-  };
 
   useEffect(() => {
     sortEntities();
@@ -78,16 +66,106 @@ export const SaleOpportunity = (props: RouteComponentProps<{ url: string }>) => 
     sortEntities();
   };
 
+  // handle excel
+  const [visibleImportDialog, setVisibleImportDialog] = useState(false);
+
+  const fileType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+  const fileExtension = '.xlsx';
+
+  const downloadUploadTemplate = () => {
+    const excelData = [];
+    excelData.push({
+      STT: 1,
+      opportunityId: '',
+      opportunityCode: '',
+      opportunityName: '',
+      opportunityTypeName: '',
+      startDate: '',
+      closeDate: '',
+      stageId: 0,
+      stageReasonId: 0,
+      employeeId: 0,
+      leadId: 0,
+      currencyCode: '',
+      accountId: 0,
+      productId: 0,
+      salesPricePrd: 0,
+      value: 0,
+    });
+
+    const ws = XLSX.utils.json_to_sheet(excelData);
+    const wb = { Sheets: { TemplateUploadSaleOppo: ws }, SheetNames: ['TemplateUploadSaleOppo'] };
+    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    const data = new Blob([excelBuffer], { type: fileType });
+    FileSaver.saveAs(data, 'TemplateUploadSaleOppo' + fileExtension);
+  };
+  // end handle excel
+
+  // start search
+  const searchFieldTemplate = [
+    {
+      name: 'opportunityCode',
+      label: 'opportunityCode',
+      searchKey: 'opportunityCode',
+      placeholder: 'opportunityCode',
+      searchType: 'equals', // Customize search type as needed
+      className: 'float-start me-2 form-control-sm',
+    },
+    {
+      name: 'opportunityName',
+      label: 'opportunityName',
+      searchKey: 'opportunityName',
+      searchType: 'contains',
+      placeholder: 'opportunityName',
+      className: 'float-start me-2 form-control-sm',
+    },
+  ];
+
+  const getAllEntities = (searchCriterials: any) => {
+    dispatch(
+      getEntities({
+        page: paginationState.activePage - 1,
+        size: paginationState.itemsPerPage,
+        sort: `${paginationState.sort},${paginationState.order}`,
+        searchCriterials,
+      })
+    );
+    const endURL = `?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`;
+    if (props.location.search !== endURL) {
+      props.history.push(`${props.location.pathname}${endURL}`);
+    }
+  };
+
+  const sortEntities = () => {
+    getAllEntities(null);
+    const endURL = `?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`;
+    if (props.location.search !== endURL) {
+      props.history.push(`${props.location.pathname}${endURL}`);
+    }
+  };
+  const handleSearch = data => {
+    getAllEntities(data);
+  };
+  // end start search
+
   const { match } = props;
 
   return (
     <div>
       <h2 id="sale-opportunity-heading" data-cy="SaleOpportunityHeading">
         Sale Opportunities
-        <div className="d-flex justify-content-end">
-          <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
-            <FontAwesomeIcon icon="sync" spin={loading} /> Refresh List
+
+        <div className="d-flex justify-content-end" style={{ height: '50px' }}>
+          <SearchComponent fields={searchFieldTemplate} onSubmit={handleSearch} />
+          <Button className="me-2" color="info" onClick={() => downloadUploadTemplate()} disabled={loading}>
+            <i className="pi pi-download" style={{ fontSize: '1rem' }}></i>
+            <span className="ms-1">Download Template</span>
           </Button>
+
+          <Button className="me-2" color="info" onClick={() => setVisibleImportDialog(true)} disabled={loading}>
+            <i className="pi pi-file-import" style={{ fontSize: '1rem' }}></i>
+            <span className="ms-1">Import Data</span>
+        <div className="d-flex justify-content-end">
           <Link to="/sale-opportunity/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
             <FontAwesomeIcon icon="plus" />
             &nbsp; Create new Sale Opportunity

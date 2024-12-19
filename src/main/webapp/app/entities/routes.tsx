@@ -27,6 +27,7 @@ import ActivityObject from './activity-object';
 import PaymentStatus from './payment-status';
 import PaymentMethod from './payment-method';
 import Unit from './unit';
+import Finalcial from './finalcial';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 export default ({ match }) => {
@@ -59,6 +60,7 @@ export default ({ match }) => {
         <ErrorBoundaryRoute path={`${match.url}payment-status`} component={PaymentStatus} />
         <ErrorBoundaryRoute path={`${match.url}payment-method`} component={PaymentMethod} />
         <ErrorBoundaryRoute path={`${match.url}unit`} component={Unit} />
+        <ErrorBoundaryRoute path={`${match.url}finalcial`} component={Finalcial} />
         {/* jhipster-needle-add-route-path - JHipster will add routes here */}
       </Switch>
     </div>

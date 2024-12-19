@@ -23,7 +23,7 @@ import activityObject from 'app/entities/activity-object/activity-object.reducer
 import paymentStatus from 'app/entities/payment-status/payment-status.reducer';
 import paymentMethod from 'app/entities/payment-method/payment-method.reducer';
 import unit from 'app/entities/unit/unit.reducer';
-
+import finalcial from 'app/entities/finalcial/finalcial.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const entitiesReducers = {
@@ -52,6 +52,7 @@ const entitiesReducers = {
   paymentStatus,
   paymentMethod,
   unit,
+  finalcial,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
 };
 

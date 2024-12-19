@@ -1,8 +1,7 @@
 import './header.scss';
 
 import React, { useState } from 'react';
-
-import { Navbar, Nav, NavbarToggler, Collapse } from 'reactstrap';
+import { Navbar, Nav, NavbarToggler, Collapse, Offcanvas, OffcanvasHeader, OffcanvasBody } from 'reactstrap';
 import LoadingBar from 'react-redux-loading-bar';
 
 import { Home, Brand } from './header-components';
@@ -10,7 +9,6 @@ import { AdminMenu, EntitiesMenu, AccountMenu } from '../menus';
 import { ConfigMenu } from 'app/shared/layout/menus/config-menu';
 import { FinanceMenu } from 'app/shared/layout/menus/finance-menu';
 import { ProjectManagmentMenu } from 'app/shared/layout/menus/project-management-menu';
-
 
 export interface IHeaderProps {
   isAuthenticated: boolean;
@@ -21,37 +19,35 @@ export interface IHeaderProps {
 }
 
 const Header = (props: IHeaderProps) => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [offcanvasOpen, setOffcanvasOpen] = useState(false);
 
-  const renderDevRibbon = () =>
-    props.isInProduction === false ? (
-      <div className="ribbon dev">
-        <a href="">DEV</a>
-      </div>
-    ) : null;
+  const toggleOffcanvas = () => setOffcanvasOpen(!offcanvasOpen);
 
-  const toggleMenu = () => setMenuOpen(!menuOpen);
-
-  /* jhipster-needle-add-element-to-menu - JHipster will add new menu items here */
+  const closeOffcanvas = () => setOffcanvasOpen(false); // Hàm đóng offcanvas
 
   return (
     <div id="app-header">
-      {renderDevRibbon()}
       <LoadingBar className="loading-bar" />
       <Navbar data-cy="navbar" dark expand="md" fixed="top" className="jh-navbar">
-        <NavbarToggler aria-label="Menu" onClick={toggleMenu} />
-        <Brand />
-        <Collapse isOpen={menuOpen} navbar>
-          <Nav id="header-tabs" className="ms-auto" navbar>
-            <Home />
-            {props.isAuthenticated && <EntitiesMenu />}
-            {props.isAuthenticated && props.isAdmin && <FinanceMenu showOpenAPI={props.isOpenAPIEnabled} />}
-            {props.isAuthenticated && props.isAdmin && <ProjectManagmentMenu showOpenAPI={props.isOpenAPIEnabled} />}
-            {props.isAuthenticated && props.isAdmin && <ConfigMenu showOpenAPI={props.isOpenAPIEnabled} />}
-            {props.isAuthenticated && props.isAdmin && <AdminMenu showOpenAPI={props.isOpenAPIEnabled} />}
-            <AccountMenu isAuthenticated={props.isAuthenticated} />
-          </Nav>
-        </Collapse>
+        <NavbarToggler aria-label="Menu Hệ thống" onClick={toggleOffcanvas} />
+        <div className="app-name">DATA CMS</div>
+
+        <Offcanvas isOpen={offcanvasOpen} direction="start" toggle={toggleOffcanvas}>
+          <OffcanvasHeader toggle={toggleOffcanvas}>Menu</OffcanvasHeader>
+          <OffcanvasBody>
+            <Nav id="header-tabs" className="flex-column" navbar>
+              {' '}
+              {/* Thêm onClick */}
+              <Home />
+              {props.isAuthenticated && <EntitiesMenu />}
+              {props.isAuthenticated && props.isAdmin && <FinanceMenu showOpenAPI={props.isOpenAPIEnabled} />}
+              {props.isAuthenticated && props.isAdmin && <ProjectManagmentMenu showOpenAPI={props.isOpenAPIEnabled} />}
+              {props.isAuthenticated && props.isAdmin && <ConfigMenu showOpenAPI={props.isOpenAPIEnabled} />}
+              {props.isAuthenticated && props.isAdmin && <AdminMenu showOpenAPI={props.isOpenAPIEnabled} />}
+              <AccountMenu isAuthenticated={props.isAuthenticated} />
+            </Nav>
+          </OffcanvasBody>
+        </Offcanvas>
       </Navbar>
     </div>
   );
